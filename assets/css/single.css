@@ -1,0 +1,23 @@
+.content .post {
+  width: 75%;
+  height: fit-content;
+  flex-direction: column;
+}
+.content .post__image {
+  height: 20rem;
+  width: 100%;
+}
+.content .post__image img {
+  object-fit: cover;
+}
+.content .post__info {
+  background-color: #f6f6f6;
+}
+.content .post__info-text {
+  font-size: 16px;
+}
+.content .post-title {
+  margin: 10px 0;
+}
+
+/*# sourceMappingURL=single.css.map */
