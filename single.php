@@ -33,7 +33,7 @@
         <div class="content__inner">
           <div class="post">
             <div class="post__image">
-              <img src="./image/img-3.jpg" alt="" />
+              <img src="./assets/image/img-3.jpg" alt="" />
             </div>
             <div class="post__info">
               <div class="post__info-user">

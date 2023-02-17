@@ -39,13 +39,13 @@
               </div>
             </div>
             <div class="carousel-item">
-              <img src="./image/img-2.jpg" class="d-block w-100" alt="..." />
+              <img src="./assets/image/img-2.jpg" class="d-block w-100" alt="..." />
               <div class="carousel-caption d-none d-md-block">
                 <h5><a href="">First slide label</a></h5>
               </div>
             </div>
             <div class="carousel-item">
-              <img src="./image/img-3.jpg" class="d-block w-100" alt="..." />
+              <img src="./assets/image/img-3.jpg" class="d-block w-100" alt="..." />
               <div class="carousel-caption d-none d-md-block">
                 <h5><a href="">First slide label</a></h5>
               </div>
@@ -72,7 +72,7 @@
           <div class="posts">
             <div class="post">
               <div class="post__image">
-                <img src="./image/img-3.jpg" alt="" />
+                <img src="./assets/image/img-3.jpg" alt="" />
               </div>
               <div class="post__info">
                 <h4 class="post__info-title">
@@ -96,7 +96,7 @@
             </div>
             <div class="post">
               <div class="post__image">
-                <img src="./image/img-3.jpg" alt="" />
+                <img src="./assets/image/img-3.jpg" alt="" />
               </div>
               <div class="post__info">
                 <h4 class="post__info-title">Прикольная статья на тему динамического сайта...</h4>
@@ -118,7 +118,7 @@
             </div>
             <div class="post">
               <div class="post__image">
-                <img src="./image/img-3.jpg" alt="" />
+                <img src="./assets/image/img-3.jpg" alt="" />
               </div>
               <div class="post__info">
                 <h4 class="post__info-title">Прикольная статья на тему динамического сайта...</h4>
@@ -140,7 +140,7 @@
             </div>
             <div class="post">
               <div class="post__image">
-                <img src="./image/img-3.jpg" alt="" />
+                <img src="./assets/image/img-3.jpg" alt="" />
               </div>
               <div class="post__info">
                 <h4 class="post__info-title">Прикольная статья на тему динамического сайта...</h4>
