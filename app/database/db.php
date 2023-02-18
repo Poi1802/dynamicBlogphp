@@ -37,7 +37,7 @@ function selectAll($table, $params = [])
       $i++;
     }
   }
-  // echo $sql;
+
   $query = $pdo->prepare($sql);
   $query->execute();
 
@@ -95,6 +95,9 @@ function insert($table, $params)
   $sql = "INSERT INTO $table($col) VALUES ($mask)";
   $query = $pdo->prepare($sql);
   $query->execute($params);
+  dbCheckErr($query);
+
+  return $pdo->lastInsertId();
 }
 // функция добавления данных в бд
 function update($table, $id, $params)
@@ -115,6 +118,7 @@ function update($table, $id, $params)
   $sql = "UPDATE $table SET $row WHERE id=$id";
   $query = $pdo->prepare($sql);
   $query->execute($params);
+  dbCheckErr($query);
 }
 // функция удаления данных из бд
 function delete(string $table, int $id): void
@@ -124,20 +128,6 @@ function delete(string $table, int $id): void
   $pdo->query($sql);
 }
 
-$arrData = [
-  'admin' => 1,
-  'username' => 'Eugen',
-  'email' => 'eugen@afdsf.2sd',
-  'password' => 'Eugen'
-];
+// $data = selectAll('users');
 
-$params = [
-  'admin' => 0,
-  'username' => 'Andrei'
-];
-
-// update('users', 1, $arrData);
-delete('users', 5);
-$data = selectAll('users');
-
-dump($data);
+// dump($data);

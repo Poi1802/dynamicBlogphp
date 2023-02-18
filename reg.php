@@ -1,4 +1,8 @@
-<?php include __DIR__ . '/path.php'; ?>
+<?php
+include __DIR__ . '/path.php';
+require_once __DIR__ . '/app/controllers/users.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,8 +21,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
   <!-- My css -->
-  <link rel="stylesheet" href="./assets/css/norm.css" />
-  <link rel="stylesheet" href="./assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/norm.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
 </head>
 
 <body>
@@ -28,25 +32,34 @@
       <div class="container">
         <div class="reg__inner">
           <h2 class="reg-title">Форма регистрации</h2>
-          <form method="post">
+          <div class="reg-inf">
+            <p class="reg-error">
+              <?= $errMsg ?>
+            </p>
+            <p class="reg-succes">
+              <?= $successMsg ?>
+            </p>
+          </div>
+          <form method="post" action="reg.php">
             <div class="mb-3">
               <label for="formGroupExampleInput" class="form-label">Задайте логин</label>
-              <input type="text" class="form-control" id="formGroupExampleInput" />
+              <input name="login" value="<?= $login ?>" type="text" class="form-control" id="formGroupExampleInput" />
             </div>
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Email</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+              <input name="email" value="<?= $email ?>" type="email" class="form-control" id="exampleInputEmail1"
+                aria-describedby="emailHelp" />
               <div id="emailHelp" class="form-text">
                 Ваш email адрес не будет использован для спама
               </div>
             </div>
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">Задайте пароль</label>
-              <input type="password" class="form-control" id="exampleInputPassword1" />
+              <input name="pass-first" type="password" class="form-control" id="exampleInputPassword1" />
             </div>
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">Повторите пароль</label>
-              <input type="password" class="form-control" id="exampleInputPassword1" />
+              <input name="pass-second" type="password" class="form-control" id="exampleInputPassword1" />
             </div>
             <div class="form__buttons">
               <button type="submit" class="form__button form__button-reg btn btn-primary">

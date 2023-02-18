@@ -18,11 +18,11 @@
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
   <!-- My css -->
   <link rel="stylesheet" href="./assets/css/norm.css" />
-  <link rel="stylesheet" href="./assets/css/main.css" />
+  <link rel="stylesheet" href="./assets/css/main.css">
 </head>
 
 <body>
-  <div class="wrapper">
+  <div class=" wrapper">
     <?php include __DIR__ . '/app/include/header.php'; ?>
 
     <section class="carousel">
