@@ -1,4 +1,8 @@
-<?php include __DIR__ . '/path.php'; ?>
+<?php
+include __DIR__ . '/path.php';
+include __DIR__ . '/app/database/db.php';
+require_once __DIR__ . '/app/controllers/users.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,18 +33,24 @@
       <div class="container">
         <div class="reg__inner">
           <h2 class="reg-title">Авторизация</h2>
-          <form method="post">
+          <div class="reg-inf">
+            <p class="reg-error">
+              <?= $errMsg ?>
+            </p>
+          </div>
+          <form method="post" action="log.php">
             <div class="mb-3">
               <label for="formGroupExampleInput" class="form-label">Ваш логин</label>
-              <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Введите ваш логин..." />
+              <input name="login" type="text" class="form-control" value="<?= $login ?>" id="formGroupExampleInput"
+                placeholder="Введите ваш логин..." />
             </div>
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">Пароль</label>
-              <input type="password" class="form-control" id="exampleInputPassword1"
+              <input name="password" type="password" class="form-control" id="exampleInputPassword1"
                 placeholder="Введите ваш пароль..." />
             </div>
             <div class="form__buttons">
-              <button type="submit" class="form__button form__button-reg btn btn-primary">
+              <button type="submit" name="btn-log" class="form__button form__button-reg btn btn-primary">
                 Войти
               </button>
               <a class="form__button form__button-log btn btn-primary" href="reg.php">

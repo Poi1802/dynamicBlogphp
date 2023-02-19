@@ -15,15 +15,30 @@
               <a href="#">Услуги</a>
             </li>
             <li class="header__list">
-              <i class="fa-solid fa-user"></i>
-              <a class="cabinet" href="#">Kабинет</a>
-              <ul class="header__popup">
-                <li class="header__list">
-                  <a href="log.php">Админ <br />
-                    панель</a>
-                </li>
-                <li class="header__list"><a href="#">Выход</a></li>
-              </ul>
+              <?php if (isset($_SESSION['id'])): ?>
+                <i class="fa-solid fa-user"></i>
+                <a class="cabinet" href="">
+                  <?= $_SESSION['login'] ?>
+                </a>
+                <ul class="header__popup">
+                  <li class="header__list">
+                    <?php if ($_SESSION['admin']): ?>
+                      <a href="log.php">Админ панель</a>
+                    <?php endif; ?>
+                  </li>
+                  <li class="header__list">
+                    <a href="<?php echo BASE_URL . 'logout.php' ?>">Выход</a>
+                  </li>
+                </ul>
+              <?php else: ?>
+                <i class="fa-solid fa-user"></i>
+                <a class="cabinet" href="<?php echo BASE_URL . 'log.php' ?>"> Войти </a>
+                <ul class="header__popup">
+                  <li class="header__list">
+                    <a href="<?php echo BASE_URL . 'reg.php' ?> ">Регистрация</a>
+                  </li>
+                </ul>
+              <?php endif; ?>
             </li>
           </ul>
         </nav>

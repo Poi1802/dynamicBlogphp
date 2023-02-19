@@ -1,5 +1,6 @@
 <?php
 include __DIR__ . '/path.php';
+include __DIR__ . '/app/database/db.php';
 require_once __DIR__ . '/app/controllers/users.php';
 ?>
 
@@ -36,9 +37,6 @@ require_once __DIR__ . '/app/controllers/users.php';
             <p class="reg-error">
               <?= $errMsg ?>
             </p>
-            <p class="reg-succes">
-              <?= $successMsg ?>
-            </p>
           </div>
           <form method="post" action="reg.php">
             <div class="mb-3">
@@ -62,7 +60,7 @@ require_once __DIR__ . '/app/controllers/users.php';
               <input name="pass-second" type="password" class="form-control" id="exampleInputPassword1" />
             </div>
             <div class="form__buttons">
-              <button type="submit" class="form__button form__button-reg btn btn-primary">
+              <button type="submit" name="btn-reg" class="form__button form__button-reg btn btn-primary">
                 Регистрация
               </button>
               <a class="form__button form__button-log btn btn-primary" href="log.php">

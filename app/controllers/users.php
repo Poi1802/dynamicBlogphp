@@ -1,10 +1,23 @@
 <?php
 require_once "app/database/db.php";
 
-$successMsg = '';
 $errMsg = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+function verifyUser($user)
+{
+  $_SESSION['id'] = $user['id'];
+  $_SESSION['login'] = $user['username'];
+  $_SESSION['admin'] = $user['admin'];
+
+  if ($_SESSION['admin']) {
+    header('location: ' . BASE_URL . 'admin/admin.php');
+  } else {
+    header('location: ' . BASE_URL);
+  }
+}
+
+// Код формы регистрации
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn-reg'])) {
   $login = trim($_POST['login']);
   $email = trim($_POST['email']);
   $passF = trim($_POST['pass-first']);
@@ -30,20 +43,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       $password = password_hash($_POST['pass-first'], PASSWORD_DEFAULT);
       $post = [
-        'login' => $login,
+        'username' => $login,
         'email' => $email,
         'password' => $password,
         'admin' => $admin
       ];
-      dump($post);
-      // $id = insert('users', $post);  
-      // $lastRow = selectOne('users', ['id' => $id]);
-      $successMsg = "<strong>$login</strong> вы успешно зарегестрированы!";
+
+      $id = insert('users', $post);
+      $user = selectOne('users', ['id' => $id]);
+
+      verifyUser($user);
     }
   }
 
 } else {
   $login = '';
   $email = '';
+}
 
+// Код формы авторизации
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn-log'])) {
+  $login = trim($_POST['login']);
+  $password = $_POST['password'];
+
+  if ($login === '' || $password === '') {
+    $errMsg = 'Все поля должны быть заполнены';
+  } else {
+
+    $existLogin = selectOne('users', ['username' => $login]);
+
+    if (!$existLogin) {
+      $errMsg = 'Логин не верен';
+    } elseif (!password_verify($password, $existLogin['password'])) {
+      $errMsg = 'Пароль не верен';
+    } else {
+      verifyUser($existLogin);
+    }
+  }
 }

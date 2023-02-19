@@ -1,4 +1,7 @@
-<?php include __DIR__ . '/path.php'; ?>
+<?php
+include __DIR__ . '/path.php';
+include __DIR__ . '/app/database/db.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 

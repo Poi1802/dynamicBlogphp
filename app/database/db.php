@@ -1,6 +1,8 @@
 <?php
 require __DIR__ . '/connect.php';
 
+session_start();
+
 function dump($val)
 {
   echo '<pre>';

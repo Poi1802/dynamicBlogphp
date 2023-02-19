@@ -45,6 +45,6 @@
   <div class="footer__copyright">
     <i class="fa-regular fa-copyright"></i>
     myblog.com
-    <span>Designed by EugenBazhenov</span>
+    <span>Designed by Eugen Bazhenov</span>
   </div>
 </footer>

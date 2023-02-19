@@ -36,6 +36,7 @@ a
     transition: 0.3s ease-in-out
 
   &__nav
+    max-height: 70px
     position: relative
 
   &__logo
@@ -48,15 +49,17 @@ a
     align-items: center
 
   &__lists
+    max-height: 70px
     display: flex
     align-items: center
     justify-content: space-between
 
   &__list
+    max-height: 70px
     display: flex
     align-items: center
     transition: .4s ease-in-out
-    width: 100%
+    width: fit-content
     a
       padding: 23px 15px
 
@@ -79,13 +82,18 @@ a
     background-color: #fff
     top: 70px
     right: 0px
-    width: 100%
+    width: 182px
     z-index: 111
 
     .header__list
+      display: flex
+      flex-direction: column
+      align-items: center
+      width: 100%
       margin: 0
       a
-        width: 93px
+        padding: 10px 30px
+        width: max-content
         color: #1fa4a8
 
       &:hover
@@ -279,7 +287,7 @@ a
 // Reg
 .reg
 
-  flex: 1 1 auto
+  // flex: 1 1 auto
   input
     height: 2.5rem
   &-title
@@ -291,7 +299,7 @@ a
     color: green
     font-style: italic
   &__inner
-    margin: 40px auto
+    margin: 20px auto
     width: 35%
   .form__buttons
     display: flex
