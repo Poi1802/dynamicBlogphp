@@ -1,0 +1,83 @@
+.content
+
+  &__inner
+    margin-top: 30px
+    display: flex
+    justify-content: space-between
+  &__title
+    margin: 35px 0
+  .posts
+    width: 73%
+    font-weight: 700
+    margin-top: 14px
+    margin-bottom: 30px
+
+    &-table
+      form
+        width: 70%
+        >div
+          margin: 20px 0
+      .button-add
+        margin-top: 10px
+        a
+          background-color: #419e57
+          color: #fff
+          &:hover
+            background-color: darken(#419e57, 5%)
+      .row-admin
+        div
+          font-size: 18px
+          font-weight: 900
+      .row-admin
+        display: grid
+        padding: 15px
+        border-bottom: 1px solid #b6b5b5
+        grid-template-columns: 1fr 5fr 2fr 4fr
+
+      .post-row
+        display: grid
+        padding: 15px
+        border-bottom: 1px solid #b6b5b5
+        grid-template-columns: 1fr 5fr 2fr 2fr 2fr
+        a:hover
+          text-decoration: underline
+        .edit
+          a
+            color: #6881d3
+        .del
+          a
+            color: #dd5656
+
+  &__sidebar
+
+    width: 280px
+
+    .search
+      border-radius: 6px
+      background-color: #ffffff
+      padding-left: 14px
+      padding-bottom: 20px
+      &__title
+        padding-top: 15px
+      &__input
+        border-radius: 6px
+        border-width: 1px
+        border-color: #e0e0e0
+        width: 250px
+        height: 50px
+
+    .categories
+      min-height: 400px
+      border-radius: 6px
+      background-color: #ffffff
+      margin-top: 0
+      padding: 20px 14px
+      &__list
+        font-weight: 800
+        padding: 14px 0
+        border-bottom: 1px solid
+        border-color: #d7d7d7
+        cursor: pointer
+        transition: .3s ease-in-out
+        &:hover
+          transform: translateX(10px)

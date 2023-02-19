@@ -23,7 +23,7 @@
                 <ul class="header__popup">
                   <li class="header__list">
                     <?php if ($_SESSION['admin']): ?>
-                      <a href="log.php">Админ панель</a>
+                      <a href="<?php echo BASE_URL . 'admin/posts' ?>">Админ панель</a>
                     <?php endif; ?>
                   </li>
                   <li class="header__list">

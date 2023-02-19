@@ -172,11 +172,11 @@ include __DIR__ . '/app/database/db.php';
             <div class="categories">
               <h3 class="categories__title">Категории</h3>
               <ul class="categories__lists">
-                <li class="categories__list">Програмированние</li>
-                <li class="categories__list">Дизайн</li>
-                <li class="categories__list">Кейсы</li>
-                <li class="categories__list">Мотивация</li>
-                <li class="categories__list">Успех</li>
+                <li class="categories__list"><a href="">Програмированние</a></li>
+                <li class="categories__list"><a href="">Дизайн</a></li>
+                <li class="categories__list"><a href="">Кейсы</a></li>
+                <li class="categories__list"><a href="">Мотивация</a></li>
+                <li class="categories__list"><a href="">Успех</a></li>
               </ul>
             </div>
           </div>

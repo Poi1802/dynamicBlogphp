@@ -1,7 +1,7 @@
 body {
   width: 100%;
   position: relative;
-  font-family: "Comfortaa", cursive;
+  font-family: "Comfortaa", sans-serif;
   color: #5c5b5b;
   background-color: #f6f6f6;
 }
@@ -243,6 +243,9 @@ a {
   border-color: #d7d7d7;
   cursor: pointer;
   transition: 0.3s ease-in-out;
+}
+.content__sidebar .categories__list a {
+  padding: 16px 0;
 }
 .content__sidebar .categories__list:hover {
   transform: translateX(10px);
