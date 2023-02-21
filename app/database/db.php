@@ -8,6 +8,7 @@ function dump($val)
   echo '<pre>';
   print_r($val);
   echo '</pre>';
+  exit();
 }
 // Проверка на ошибки
 function dbCheckErr($query)
@@ -101,8 +102,8 @@ function insert($table, $params)
 
   return $pdo->lastInsertId();
 }
-// функция добавления данных в бд
-function update($table, $id, $params)
+// функция обновления данных в бд
+function update($table, $id, array $params)
 {
   global $pdo;
   $row = '';
@@ -123,7 +124,7 @@ function update($table, $id, $params)
   dbCheckErr($query);
 }
 // функция удаления данных из бд
-function delete(string $table, int $id): void
+function deleteRow(string $table, int $id): void
 {
   global $pdo;
   $sql = "DELETE FROM $table WHERE id=$id";

@@ -1,6 +1,6 @@
 <?php
 include "../../path.php";
-session_start();
+include "../../app/controllers/topics.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,29 +33,29 @@ session_start();
       <div class="container">
         <div class="content__inner ">
           <div class="content__sidebar">
-            <div class="categories">
-              <h3 class="categories__title">Админ-панель</h3>
-              <ul class="categories__lists">
-                <li class="categories__list"><a href="<?php echo BASE_URL . 'admin/posts' ?>">Записи</a></li>
-                <li class="categories__list"><a href="<?php echo BASE_URL . 'admin/topics' ?>">Категории</a></li>
-                <li class="categories__list"><a href="<?php echo BASE_URL . 'admin/users' ?>">Пользователи</a></li>
-              </ul>
-            </div>
+            <?php include "../../app/include/categories-admin.php" ?>
           </div>
           <div class="posts">
             <div class="posts-table ">
               <h2 class="table-title">Добавление категории</h2>
+              <div class="reg-inf">
+                <p class="reg-error">
+                  <?= $errMsg ?>
+                </p>
+              </div>
               <form action="create.php" method="post">
                 <div class="col">
                   <label for="exampleFormControlInput1" class="form-label">Название категории</label>
-                  <input type="email" class="form-control" id="exampleFormControlInput1">
+                  <input name="name" type="text" value="<?= $name ?>" class="form-control"
+                    id="exampleFormControlInput1">
                 </div>
                 <div class="col">
                   <label for="exampleFormControlTextarea1" class="form-label">Описание категории</label>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                  <textarea name="description" class="form-control" id="exampleFormControlTextarea1"
+                    rows="3"><?= $descr ?></textarea>
                 </div>
                 <div class="col">
-                  <button class="btn btn-primary" type="submit">Добавить запись</button>
+                  <button name="topic-btn" class="btn btn-primary" type="submit">Добавить категорию</button>
                 </div>
               </form>
             </div>

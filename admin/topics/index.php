@@ -1,6 +1,6 @@
 <?php
 include "../../path.php";
-session_start();
+include SITE_ROOT . "/app/controllers/topics.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,14 +33,7 @@ session_start();
       <div class="container">
         <div class="content__inner ">
           <div class="content__sidebar">
-            <div class="categories">
-              <h3 class="categories__title">Админ-панель</h3>
-              <ul class="categories__lists">
-                <li class="categories__list"><a href="<?php echo BASE_URL . 'admin/posts' ?>">Записи</a></li>
-                <li class="categories__list"><a href="<?php echo BASE_URL . 'admin/topics' ?>">Категории</a></li>
-                <li class="categories__list"><a href="<?php echo BASE_URL . 'admin/users' ?>">Пользователи</a></li>
-              </ul>
-            </div>
+            <?php include "../../app/include/categories-admin.php" ?>
           </div>
           <div class="posts">
             <div class="posts-table ">
@@ -55,43 +48,24 @@ session_start();
               </div>
 
               <div class="posts-rows">
-                <div class="post-row">
-                  <div class="id">1</div>
-                  <div class="title">
-                    <a href="">Какое-то там название</a>
+                <?php foreach ($topics as $key => $topic): ?>
+                  <div class="post-row">
+                    <div class="id">
+                      <?= $key + 1 ?>
+                    </div>
+                    <div class="title">
+                      <a href="">
+                        <?= $topic['name'] ?>
+                      </a>
+                    </div>
+                    <div class="edit">
+                      <a href="edit.php?id=<?= $topic['id'] ?>">Редакт.</a>
+                    </div>
+                    <div class="del">
+                      <a href="edit.php?del_id=<?= $topic['id'] ?>">Удалить</a>
+                    </div>
                   </div>
-                  <div class="edit">
-                    <a href="">Редакт.</a>
-                  </div>
-                  <div class="del">
-                    <a href="">Удалить</a>
-                  </div>
-                </div>
-                <div class="post-row">
-                  <div class="id">1</div>
-                  <div class="title">
-                    <a href="">Какое-то там название</a>
-                  </div>
-                  <div class="edit">
-                    <a href="">Редакт.</a>
-                  </div>
-                  <div class="del">
-                    <a href="">Удалить</a>
-                  </div>
-                </div>
-                <div class="post-row">
-                  <div class="id">1</div>
-                  <div class="title">
-                    <a href="">Какое-то там название</a>
-                  </div>
-                  <div class="edit">
-                    <a href="">Редакт.</a>
-                  </div>
-                  <div class="del">
-                    <a href="">Удалить</a>
-                  </div>
-                </div>
-
+                <?php endforeach ?>
               </div>
             </div>
           </div>

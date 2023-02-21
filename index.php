@@ -1,6 +1,6 @@
 <?php
-include __DIR__ . '/path.php';
-include __DIR__ . '/app/database/db.php';
+include 'path.php';
+include 'app/controllers/topics.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -172,11 +172,11 @@ include __DIR__ . '/app/database/db.php';
             <div class="categories">
               <h3 class="categories__title">Категории</h3>
               <ul class="categories__lists">
-                <li class="categories__list"><a href="">Програмированние</a></li>
-                <li class="categories__list"><a href="">Дизайн</a></li>
-                <li class="categories__list"><a href="">Кейсы</a></li>
-                <li class="categories__list"><a href="">Мотивация</a></li>
-                <li class="categories__list"><a href="">Успех</a></li>
+                <?php foreach ($topics as $topic): ?>
+                  <li class="categories__list"><a href="">
+                      <?= $topic['name'] ?>
+                    </a></li>
+                <?php endforeach ?>
               </ul>
             </div>
           </div>

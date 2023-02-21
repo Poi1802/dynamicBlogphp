@@ -37,13 +37,14 @@ require_once SITE_ROOT . '/app/controllers/posts.php';
           </div>
           <div class="posts">
             <div class="posts-table ">
-              <h2 class="table-title">Добавление статьи</h2>
+              <h2 class="table-title">Изменение статьи</h2>
               <div class="reg-inf">
                 <p class="reg-error">
                   <?= $errMsg ?>
                 </p>
               </div>
-              <form action="create.php" method="post">
+              <form action="edit.php" method="post">
+                <input name="id" type="hidden" value="<?= $id ?>">
                 <div class="col">
                   <label for="exampleFormControlInput1" class="form-label">Название статьи</label>
                   <input name="title" value="<?= $title ?>" type="text" class="form-control"
@@ -54,21 +55,19 @@ require_once SITE_ROOT . '/app/controllers/posts.php';
                   <textarea name="content" class="form-control" id="editor" rows="3"><?= $content ?></textarea>
                 </div>
                 <div class="input-group col">
-                  <input name="img" type="file" class="form-control" id="inputGroupFile02">
+                  <input name="img" value="<?= $img ?>" type="file" class="form-control" id="inputGroupFile02">
                   <label class="input-group-text" for="inputGroupFile02">Картинка</label>
                 </div>
                 <select name="id_topic" class="form-select" aria-label="Default select example">
-                  <option selected>Выберите категорию:</option>
+                  <option selected value="<?= $topic['id'] ?>">
+                    <?= $topic['name'] ?>
+                  </option>
                   <?php foreach ($topics as $topic): ?>
                     <option value="<?= $topic['id'] ?>"><?= $topic['name'] ?></option>
                   <?php endforeach ?>
                 </select>
-                <div class="mb-3 form-check">
-                  <input name="publish" value="1" type="checkbox" class="form-check-input" id="exampleCheck1">
-                  <label class="form-check-label" for="exampleCheck1">Publish</label>
-                </div>
                 <div class="col">
-                  <button name="add_post" class="btn btn-primary" type="submit">Добавить запись</button>
+                  <button name="edit_post" class="btn btn-primary" type="submit">Изменить запись</button>
                 </div>
               </form>
             </div>

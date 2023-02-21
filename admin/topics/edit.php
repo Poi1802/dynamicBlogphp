@@ -1,6 +1,6 @@
 <?php
 include "../../path.php";
-require_once SITE_ROOT . '/app/controllers/posts.php';
+include "../../app/controllers/topics.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +14,7 @@ require_once SITE_ROOT . '/app/controllers/posts.php';
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700;800;900&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap"
     rel="stylesheet" />
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -37,38 +37,26 @@ require_once SITE_ROOT . '/app/controllers/posts.php';
           </div>
           <div class="posts">
             <div class="posts-table ">
-              <h2 class="table-title">Добавление статьи</h2>
+              <h2 class="table-title">Изменение категории</h2>
               <div class="reg-inf">
                 <p class="reg-error">
                   <?= $errMsg ?>
                 </p>
               </div>
               <form action="create.php" method="post">
+                <input name="id" type="hidden" value="<?= $id ?>">
                 <div class="col">
-                  <label for="exampleFormControlInput1" class="form-label">Название статьи</label>
-                  <input name="title" value="<?= $title ?>" type="text" class="form-control"
+                  <label for="exampleFormControlInput1" class="form-label">Название категории</label>
+                  <input name="name" type="text" value="<?= $name ?>" class="form-control"
                     id="exampleFormControlInput1">
                 </div>
                 <div class="col">
-                  <label for="exampleFormControlTextarea1" class="form-label">Содержимое статьи</label>
-                  <textarea name="content" class="form-control" id="editor" rows="3"><?= $content ?></textarea>
-                </div>
-                <div class="input-group col">
-                  <input name="img" type="file" class="form-control" id="inputGroupFile02">
-                  <label class="input-group-text" for="inputGroupFile02">Картинка</label>
-                </div>
-                <select name="id_topic" class="form-select" aria-label="Default select example">
-                  <option selected>Выберите категорию:</option>
-                  <?php foreach ($topics as $topic): ?>
-                    <option value="<?= $topic['id'] ?>"><?= $topic['name'] ?></option>
-                  <?php endforeach ?>
-                </select>
-                <div class="mb-3 form-check">
-                  <input name="publish" value="1" type="checkbox" class="form-check-input" id="exampleCheck1">
-                  <label class="form-check-label" for="exampleCheck1">Publish</label>
+                  <label for="exampleFormControlTextarea1" class="form-label">Описание категории</label>
+                  <textarea name="description" class="form-control" id="exampleFormControlTextarea1"
+                    rows="3"><?= $descr ?></textarea>
                 </div>
                 <div class="col">
-                  <button name="add_post" class="btn btn-primary" type="submit">Добавить запись</button>
+                  <button name="topic-edit" class="btn btn-primary" type="submit">Изменить категорию</button>
                 </div>
               </form>
             </div>
@@ -84,9 +72,6 @@ require_once SITE_ROOT . '/app/controllers/posts.php';
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
     crossorigin="anonymous"></script>
-  <!-- CKEditor редактирование текста поста при написании -->
-  <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
-  <script src="../../assets/js/scripts.js"></script>
 </body>
 
 </html>
