@@ -134,3 +134,28 @@ function deleteRow(string $table, int $id): void
 // $data = selectAll('users');
 
 // dump($data);
+
+// Вытягиваем пользователя поста
+function selectPostsOfUsers($tableUsers, $tablePosts)
+{
+  global $pdo;
+  $sql = "SELECT t1.username, t2.* FROM $tableUsers AS t1 JOIN $tablePosts as t2 WHERE t1.id = t2.id_user";
+  $query = $pdo->prepare($sql);
+  $query->execute();
+
+  dbCheckErr($query);
+
+  return $query->fetchAll();
+}
+
+function selectPostsOfUser($tableUsers, $tablePosts, $postId)
+{
+  global $pdo;
+  $sql = "SELECT t1.username, t2.* FROM $tableUsers AS t1 JOIN $tablePosts as t2 WHERE t1.id = t2.id_user AND t2.id = $postId";
+  $query = $pdo->prepare($sql);
+  $query->execute();
+
+  dbCheckErr($query);
+
+  return $query->fetch();
+}
