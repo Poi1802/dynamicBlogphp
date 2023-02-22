@@ -1,6 +1,7 @@
 <?php
 include 'path.php';
 include 'app/controllers/topics.php';
+include 'app/controllers/posts.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,96 +74,39 @@ include 'app/controllers/topics.php';
         <h3 class="content__title">Последние публикации</h3>
         <div class="content__inner">
           <div class="posts">
-            <div class="post">
-              <div class="post__image">
-                <img src="./assets/image/img-3.jpg" alt="" />
-              </div>
-              <div class="post__info">
-                <h4 class="post__info-title">
-                  <a href="single.php">Прикольная статья на тему динамического сайта...</a>
-                </h4>
-                <div class="post__info-user">
-                  <div class="user">
-                    <i class="fa-regular fa-user"></i>
-                    <span>Имя автора</span>
+            <?php foreach ($postsAdm as $key => $post): ?>
+              <?php if ($post['status']): ?>
+                <div class="post">
+                  <div class="post__image">
+                    <img src="./assets/image/posts/<?= $post['img'] ?>" alt="" />
                   </div>
-                  <div class="date">
-                    <i class="fa-solid fa-calendar-days"></i>
-                    <span>Дата</span>
-                  </div>
-                </div>
-                <div class="post__info-text">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita voluptas
-                  fugiat sint cupiditate officiis dolorem omnis assumenda at fugit quaerat.
-                </div>
-              </div>
-            </div>
-            <div class="post">
-              <div class="post__image">
-                <img src="./assets/image/img-3.jpg" alt="" />
-              </div>
-              <div class="post__info">
-                <h4 class="post__info-title">Прикольная статья на тему динамического сайта...</h4>
-                <div class="post__info-user">
-                  <div class="user">
-                    <i class="fa-regular fa-user"></i>
-                    <span>Имя автора</span>
-                  </div>
-                  <div class="date">
-                    <i class="fa-solid fa-calendar-days"></i>
-                    <span>Дата</span>
+                  <div class="post__info">
+                    <h4 class="post__info-title">
+                      <a href="single.php?post_id=<?= $post['id'] ?>">
+                        <?= $post['title'] ?>
+                      </a>
+                    </h4>
+                    <div class="post__info-user">
+                      <div class="user">
+                        <i class="fa-regular fa-user"></i>
+                        <span>
+                          <?= $post['username'] ?>
+                        </span>
+                      </div>
+                      <div class="date">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <span>
+                          <?= $post['created_date'] ?>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="post__info-text">
+                      <?= $post['content'] ?>
+                    </div>
                   </div>
                 </div>
-                <div class="post__info-text">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita voluptas
-                  fugiat sint cupiditate officiis dolorem omnis assumenda at fugit quaerat.
-                </div>
-              </div>
-            </div>
-            <div class="post">
-              <div class="post__image">
-                <img src="./assets/image/img-3.jpg" alt="" />
-              </div>
-              <div class="post__info">
-                <h4 class="post__info-title">Прикольная статья на тему динамического сайта...</h4>
-                <div class="post__info-user">
-                  <div class="user">
-                    <i class="fa-regular fa-user"></i>
-                    <span>Имя автора</span>
-                  </div>
-                  <div class="date">
-                    <i class="fa-solid fa-calendar-days"></i>
-                    <span>Дата</span>
-                  </div>
-                </div>
-                <div class="post__info-text">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita voluptas
-                  fugiat sint cupiditate officiis dolorem omnis assumenda at fugit quaerat.
-                </div>
-              </div>
-            </div>
-            <div class="post">
-              <div class="post__image">
-                <img src="./assets/image/img-3.jpg" alt="" />
-              </div>
-              <div class="post__info">
-                <h4 class="post__info-title">Прикольная статья на тему динамического сайта...</h4>
-                <div class="post__info-user">
-                  <div class="user">
-                    <i class="fa-regular fa-user"></i>
-                    <span>Имя автора</span>
-                  </div>
-                  <div class="date">
-                    <i class="fa-solid fa-calendar-days"></i>
-                    <span>Дата</span>
-                  </div>
-                </div>
-                <div class="post__info-text">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita voluptas
-                  fugiat sint cupiditate officiis dolorem omnis assumenda at fugit quaerat.
-                </div>
-              </div>
-            </div>
+              <?php endif ?>
+            <?php endforeach ?>
           </div>
           <div class="content__sidebar">
             <div class="search">

@@ -172,22 +172,26 @@ a {
   width: 73%;
 }
 .content .post {
+  max-height: 250px;
   font-weight: 700;
   display: flex;
   margin-bottom: 30px;
 }
 .content .post__image {
-  width: 65%;
+  max-width: 35%;
   border: 1px solid #c4c4c4;
   border-radius: 5px;
   margin-right: 10px;
 }
 .content .post__image img {
   height: 100%;
+  object-fit: cover;
   padding: 3px;
   width: 100%;
 }
 .content .post__info {
+  width: 100%;
+  overflow: hidden;
   border-radius: 6px;
   padding-left: 6px;
   background-color: #ffffff;
@@ -210,6 +214,15 @@ a {
 .content .post__info-text {
   margin-top: 15px;
   font-size: 14px;
+}
+.content .single-post {
+  padding: 4px;
+  border: 1px solid #c4c4c4;
+  border-radius: 8px;
+  max-height: 100%;
+}
+.content .single-post .post__image {
+  max-width: 100%;
 }
 .content__sidebar {
   width: 280px;
@@ -337,7 +350,7 @@ a {
 .reg-title {
   margin-bottom: 20px;
 }
-.reg-error {
+.reg-error li {
   color: red;
   font-style: italic;
 }

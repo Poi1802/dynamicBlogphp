@@ -38,12 +38,10 @@ require_once SITE_ROOT . '/app/controllers/posts.php';
           <div class="posts">
             <div class="posts-table ">
               <h2 class="table-title">Добавление статьи</h2>
-              <div class="reg-inf">
-                <p class="reg-error">
-                  <?= $errMsg ?>
-                </p>
+              <div class="reg-error">
+                <?php include SITE_ROOT . '/app/helps/errInfo.php' ?>
               </div>
-              <form action="create.php" method="post">
+              <form action="create.php" method="post" enctype="multipart/form-data">
                 <div class="col">
                   <label for="exampleFormControlInput1" class="form-label">Название статьи</label>
                   <input name="title" value="<?= $title ?>" type="text" class="form-control"

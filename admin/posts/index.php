@@ -49,7 +49,7 @@ require_once SITE_ROOT . '/app/controllers/posts.php';
               </div>
 
               <div class="posts-rows">
-                <?php foreach ($posts as $key => $post): ?>
+                <?php foreach ($postsAdm as $key => $post): ?>
                   <div class="post-row">
                     <div class="id">
                       <?= $key + 1 ?>
@@ -60,7 +60,7 @@ require_once SITE_ROOT . '/app/controllers/posts.php';
                       </a>
                     </div>
                     <div class="auth">
-                      <?= $_SESSION['login'] ?>
+                      <?= $post['username'] ?>
                     </div>
                     <div class="edit">
                       <a href="edit.php?id=<?= $post['id'] ?>">Редакт.</a>
@@ -70,9 +70,9 @@ require_once SITE_ROOT . '/app/controllers/posts.php';
                     </div>
                     <div class="publish">
                       <?php if ($post['status']): ?>
-                        <a href="">unpublish</a>
+                        <a href="edit.php?publ=0&id=<?= $post['id'] ?>">unpublish</a>
                       <?php else: ?>
-                        <a href="">publish</a>
+                        <a href="edit.php?publ=1&id=<?= $post['id'] ?>">publish</a>
                       <?php endif ?>
                     </div>
                   </div>

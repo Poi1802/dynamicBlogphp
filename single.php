@@ -1,6 +1,7 @@
 <?php
 include __DIR__ . '/path.php';
-include __DIR__ . '/app/database/db.php';
+include 'app/controllers/topics.php';
+include __DIR__ . '/app/controllers/singlePost.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,56 +32,31 @@ include __DIR__ . '/app/database/db.php';
     <section class="content">
       <div class="container">
         <h3 class="content__title">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, dolor!
+          <?= $post['title'] ?>
         </h3>
         <div class="content__inner">
-          <div class="post">
+          <div class="post single-post">
             <div class="post__image">
-              <img src="./assets/image/img-3.jpg" alt="" />
+              <img src="./assets/image/posts/<?= $post['img'] ?>" alt="" />
+            </div>
+            <div class="post__info-user">
+              <div class="user">
+                <i class="fa-regular fa-user"></i>
+                <span>
+                  <?= $post['username'] ?>
+                </span>
+              </div>
+              <div class="date">
+                <i class="fa-solid fa-calendar-days"></i>
+                <span>
+                  <?= $post['created_date'] ?>
+                </span>
+              </div>
             </div>
             <div class="post__info">
-              <div class="post__info-user">
-                <div class="user">
-                  <i class="fa-regular fa-user"></i>
-                  <span>Имя автора</span>
-                </div>
-                <div class="date">
-                  <i class="fa-solid fa-calendar-days"></i>
-                  <span>Дата</span>
-                </div>
-              </div>
               <h3 class="post-title">Lorem ipsum dolor sit amet.</h3>
               <div class="post__info-text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi maiores non
-                tenetur quibusdam inventore atque repellat quaerat asperiores obcaecati soluta
-                quisquam reprehenderit corporis saepe a eum, nobis dignissimos! Dolorum, enim! Eos
-                quo excepturi explicabo, eum nihil voluptatibus quis soluta at deleniti. Sapiente
-                aperiam architecto amet perferendis dolorum? Quas inventore quaerat, voluptates,
-                amet eveniet ipsum eligendi impedit cumque at tempore culpa! Doloribus vel dicta,
-                reprehenderit quas similique, suscipit explicabo reiciendis facere placeat ab
-                maiores nisi possimus odit cum. Sint suscipit iste id qui quaerat aliquam possimus
-                repellat. Voluptate placeat autem magnam. Inventore earum quisquam voluptatem
-                sapiente fugit ipsum aliquid necessitatibus dolores unde deleniti illo
-                voluptatibus, vero illum cum molestias repellendus tenetur ipsam odit sequi quis
-                assumenda tempore! Error tempora laboriosam voluptatem! Perferendis maxime
-                corrupti nisi enim quas illum reiciendis doloremque. Voluptates, magni. Veniam
-                exercitationem, dicta amet a illo non repellendus cumque animi deserunt ex
-                molestias assumenda mollitia ea quisquam placeat velit? Impedit illum quaerat
-                dolores modi minima consequuntur repudiandae laborum qui blanditiis doloribus
-                dolorum, eos obcaecati vero eaque doloremque delectus, incidunt quisquam error
-                nemo voluptate! Autem nostrum eveniet nobis nemo consectetur! Deleniti odit autem
-                eaque impedit ratione quam rerum dolorum voluptatibus, saepe vitae quaerat cumque
-                numquam voluptas repellat voluptatem eius, qui itaque a, quod voluptate.
-                Excepturi, illum rerum! Ratione, aperiam deserunt? Natus unde totam placeat quia
-                libero similique voluptatibus saepe omnis non beatae architecto aliquam corporis,
-                eius voluptate, quo quae vel laudantium expedita! Maxime optio, dolorum laudantium
-                reiciendis ipsa repudiandae saepe! Deleniti id consequuntur autem ipsa quaerat
-                dignissimos blanditiis alias molestias cum enim, fuga numquam? Et doloremque
-                obcaecati, temporibus tempore facere corporis iste veritatis vero eius commodi
-                iure, autem dolorem id! Ratione, ipsum! Dolores consequuntur iure accusantium,
-                quam possimus odit eum veniam dolor eaque quod ratione, sapiente a nesciunt
-                assumenda! Numquam sit nobis possimus architecto aliquid ratione ipsum provident
-                placeat aliquam.
+                <?= $post['content'] ?>
               </div>
             </div>
           </div>
@@ -92,11 +68,11 @@ include __DIR__ . '/app/database/db.php';
             <div class="categories">
               <h3 class="categories__title">Категории</h3>
               <ul class="categories__lists">
-                <li class="categories__list">Програмированние</li>
-                <li class="categories__list">Дизайн</li>
-                <li class="categories__list">Кейсы</li>
-                <li class="categories__list">Мотивация</li>
-                <li class="categories__list">Успех</li>
+                <?php foreach ($topics as $topic): ?>
+                  <li class="categories__list"><a href="">
+                      <?= $topic['name'] ?>
+                    </a></li>
+                <?php endforeach ?>
               </ul>
             </div>
           </div>
