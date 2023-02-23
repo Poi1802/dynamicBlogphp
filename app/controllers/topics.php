@@ -41,16 +41,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['topic-edit'])) {
   $descr = trim($_POST['description']);
 
   if ($name === '' || $descr === '') {
-    $errMsg[] = 'Все поля должны быть заполнены';
+    $errMsg = 'Все поля должны быть заполнены';
+    setcookie('err', $errMsg, time() + 1);
+    header('location: ' . BASE_URL . 'admin/topics/edit.php?id=' . $_POST['id']);
   } elseif (mb_strlen($name, 'UTF-8') < 2) {
-    $errMsg[] = 'Категория должна быть больше 2 символов!';
+    $errMsg = 'Категория должна быть больше 2 символов!123';
+    setcookie('err', $errMsg, time() + 1);
+    header('location: ' . BASE_URL . 'admin/topics/edit.php?id=' . $_POST['id']);
   } else {
     $topic = [
       'name' => $name,
       'description' => $descr
     ];
+
     $id = $_POST['id'];
     update('topics', $id, $topic);
+    unset($_SESSION['errMsg']);
     header('location: ' . BASE_URL . 'admin/topics');
   }
 }

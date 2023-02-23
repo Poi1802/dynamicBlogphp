@@ -121,7 +121,7 @@ function update($table, $id, array $params)
   $sql = "UPDATE $table SET $row WHERE id=$id";
   $query = $pdo->prepare($sql);
   $query->execute($params);
-  dbCheckErr($query);
+  return dbCheckErr($query);
 }
 // функция удаления данных из бд
 function deleteRow(string $table, int $id): void

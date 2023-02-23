@@ -103,9 +103,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit-user'])) {
   $admin = $_POST['role'] ? $_POST['role'] : 0;
 
   if (mb_strlen($login, 'UTF-8') < 2) {
-    $errMsg[] = 'Логин должен быть больше 2 символов!';
+    $errMsg = 'Логин должен быть больше 2 символов!';
+    setcookie('err', $errMsg, time() + 1);
+    header('location: ' . BASE_URL . 'admin/users/edit.php?id=' . $_POST['id']);
   } elseif ($passF !== $passS) {
-    $errMsg[] = 'Пароли в обоих полях должны совпадать';
+    $errMsg = 'Пароли в обоих полях должны совпадать';
+    setcookie('err', $errMsg, time() + 1);
+    header('location: ' . BASE_URL . 'admin/users/edit.php?id=' . $_POST['id']);
   } else {
 
     $password = password_hash($_POST['pass-first'], PASSWORD_DEFAULT);
@@ -122,6 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit-user'])) {
     ];
 
     update('users', $id, $passF ? $userP : $user);
+    unset($_SESSION['errMsg']);
     header('location: ' . BASE_URL . '/admin/users');
   }
 }
@@ -129,5 +134,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit-user'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['del_id'])) {
   $id = $_GET['del_id'];
   deleteRow('users', $id);
+  header("location: " . BASE_URL . '/admin/users');
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['role'])) {
+  $id = $_GET['id'];
+  update('users', $id, ['admin' => $_GET['role']]);
   header("location: " . BASE_URL . '/admin/users');
 }

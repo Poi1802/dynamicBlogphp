@@ -44,6 +44,7 @@ include SITE_ROOT . "/app/controllers/users.php";
               <div class="row-admin">
                 <div class="id">ID</div>
                 <div class="title">Логин</div>
+                <div class="email">Email</div>
                 <div class="auth">Роль</div>
                 <div class="manage">Управление</div>
               </div>
@@ -52,13 +53,24 @@ include SITE_ROOT . "/app/controllers/users.php";
                 <?php foreach ($users as $key => $user): ?>
                   <div class="post-row">
                     <div class="id">
-                      <?= $key + 1 ?>
+                      <?= $user['id'] ?>
                     </div>
                     <div class="title">
                       <?= $user['username'] ?>
                     </div>
+                    <div class="email">
+                      <?= $user['email'] ?>
+                    </div>
                     <div class="auth">
-                      <?= $user['admin'] ? 'Admin' : 'User' ?>
+                      <?php if ($user['admin']): ?>
+                        <a href="edit.php?role=0&id=<?= $user['id'] ?>">
+                          Admin
+                        </a>
+                      <?php else: ?>
+                        <a href="edit.php?role=1&id=<?= $user['id'] ?>">
+                          User
+                        </a>
+                      <?php endif ?>
                     </div>
                     <div class="edit">
                       <a href="edit.php?id=<?= $user['id'] ?>">Редакт.</a>

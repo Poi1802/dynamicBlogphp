@@ -16,23 +16,8 @@ $id = '';
 
 // Код формы добавления категорий
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_post'])) {
-  if ($_FILES['img']['size'] > 0) {
-    $imgName = time() . '_' . $_FILES['img']['name'];
-    $imgTmpName = $_FILES['img']['tmp_name'];
-    $imgType = $_FILES['img']['type'];
-    $destination = ROOT_PATH . "/assets/image/posts/" . $imgName;
 
-    if (explode('/', $imgType)[0] !== 'image') {
-      $errMsg[] = 'Можно загружать только картинки';
-    } elseif ($_FILES['img']['size'] > 2097152) {
-      $errMsg[] = 'Изображение не должно быть дольше 2МБ';
-    } else {
-      $result = move_uploaded_file($imgTmpName, $destination);
-      $result ? $_POST['img'] = $imgName : $errMsg[] = 'Ошибка загрузки картинки на сервер';
-    }
-  } else {
-    $errMsg[] = 'Ошибка получения картинки';
-  }
+  include SITE_ROOT . '/app/helps/checkImg.php';
 
   $title = trim($_POST['title']);
   $content = trim($_POST['content']);
@@ -58,30 +43,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_post'])) {
 
     $id = insert('posts', $post);
     $post = selectOne('posts', ['id' => $id]);
+    move_uploaded_file($imgTmpName, $destination);
     header('location: ' . BASE_URL . 'admin/posts');
   }
 }
 
 // Код формы изменения категорий
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_post'])) {
+
+  include SITE_ROOT . '/app/helps/checkImg.php';
+
   $title = trim($_POST['title']);
   $content = trim($_POST['content']);
   $img = trim($_POST['img']);
+  $publish = $_POST['publish'] ? 1 : 0;
   $idTopic = $_POST['id_topic'];
 
   if ($title === '' || $content === '' || $idTopic === '') {
-    $errMsg[] = 'Все поля должны быть заполнены';
+    $errMsg = 'Все поля должны быть заполнены';
+    setcookie('err', $errMsg, time() + 1);
+    header('location: ' . BASE_URL . "/admin/posts/edit.php?id=$id");
   } elseif (mb_strlen($title, 'UTF-8') < 8) {
-    $errMsg[] = 'Название записи должно быть больше 8-и символов!';
+    $errMsg = 'Название записи должно быть больше 8-и символов!';
+    setcookie('err', $errMsg, time() + 1);
+    header('location: ' . BASE_URL . '/admin/posts/edit.php?id=' . $_POST['id']);
   } else {
     $post = [
       'title' => $title,
       'content' => $content,
-      'status' => 1,
-      'id_topic' => $idTopic
+      'status' => $publish,
+      'id_topic' => $idTopic,
+      'img' => $img ? $img : $_POST['img_old'],
     ];
+
     $id = $_POST['id'];
-    update('posts', $id, $post);
+    $res = update('posts', $id, $post);
+    if ($img) {
+      move_uploaded_file($imgTmpName, $destination);
+      unlink(ROOT_PATH . '/assets/image/posts/' . $_POST['img_old']);
+    }
+    unset($_SESSION['errMsg']);
     header('location: ' . BASE_URL . 'admin/posts');
   }
 }
@@ -90,8 +91,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
   $id = $_GET['id'];
   $post = selectOne('posts', ['id' => $id]);
   $topic = selectOne('topics', ['id' => $post['id_topic']]);
+
   $title = $post['title'];
   $content = $post['content'];
+  $publish = $post['status'];
   $img = $post['img'];
 }
 
