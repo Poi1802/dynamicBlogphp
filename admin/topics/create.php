@@ -38,10 +38,8 @@ include "../../app/controllers/topics.php";
           <div class="posts">
             <div class="posts-table ">
               <h2 class="table-title">Добавление категории</h2>
-              <div class="reg-inf">
-                <p class="reg-error">
-                  <?= $errMsg ?>
-                </p>
+              <div class="reg-error">
+                <?php include SITE_ROOT . '/app/helps/errInfo.php' ?>
               </div>
               <form action="create.php" method="post">
                 <div class="col">

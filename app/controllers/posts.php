@@ -2,7 +2,7 @@
 require_once SITE_ROOT . "/app/database/db.php";
 
 $topics = selectAll('topics');
-$posts = selectAll('posts');
+// $posts = selectAll('posts');
 $postsAdm = selectPostsOfUsers('users', 'posts');
 
 $errMsg = [];

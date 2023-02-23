@@ -1,6 +1,6 @@
 <?php
 include "../../path.php";
-session_start();
+include SITE_ROOT . "/app/controllers/users.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,32 +49,25 @@ session_start();
               </div>
 
               <div class="posts-rows">
-                <div class="post-row">
-                  <div class="id">1</div>
-                  <div class="title">
-                    <a href="">Eugen</a>
+                <?php foreach ($users as $key => $user): ?>
+                  <div class="post-row">
+                    <div class="id">
+                      <?= $key + 1 ?>
+                    </div>
+                    <div class="title">
+                      <?= $user['username'] ?>
+                    </div>
+                    <div class="auth">
+                      <?= $user['admin'] ? 'Admin' : 'User' ?>
+                    </div>
+                    <div class="edit">
+                      <a href="edit.php?id=<?= $user['id'] ?>">Редакт.</a>
+                    </div>
+                    <div class="del">
+                      <a href="edit.php?del_id=<?= $user['id'] ?>">Удалить</a>
+                    </div>
                   </div>
-                  <div class="auth">Admin</div>
-                  <div class="edit">
-                    <a href="">Редакт.</a>
-                  </div>
-                  <div class="del">
-                    <a href="">Удалить</a>
-                  </div>
-                </div>
-                <div class="post-row">
-                  <div class="id">1</div>
-                  <div class="title">
-                    <a href="">Andr</a>
-                  </div>
-                  <div class="auth">Admin</div>
-                  <div class="edit">
-                    <a href="">Редакт.</a>
-                  </div>
-                  <div class="del">
-                    <a href="">Удалить</a>
-                  </div>
-                </div>
+                <?php endforeach ?>
               </div>
             </div>
           </div>

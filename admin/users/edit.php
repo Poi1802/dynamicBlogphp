@@ -37,37 +37,39 @@ include "../../app/controllers/users.php";
           </div>
           <div class="posts">
             <div class="posts-table ">
-              <h2 class="table-title">Добавление Пользователя</h2>
+              <h2 class="table-title">Изменение Пользователя</h2>
               <div class="reg-error">
                 <?php include SITE_ROOT . '/app/helps/errInfo.php' ?>
               </div>
               <form action="create.php" method="post">
+                <input name="id" type="hidden" value="<?= $id ?>">
                 <div class="mb-3">
-                  <label for="formGroupExampleInput" class="form-label">Задайте логин</label>
-                  <input name="login" value="" type="text" class="form-control" id="formGroupExampleInput" />
+                  <label for="formGroupExampleInput" class="form-label">Измените логин</label>
+                  <input name="login" value="<?= $login ?>" type="text" class="form-control"
+                    id="formGroupExampleInput" />
                 </div>
                 <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">Email</label>
-                  <input name="email" value="" type="email" class="form-control" id="exampleInputEmail1"
+                  <label for="exampleInputEmail1" class="form-label">Измените Email</label>
+                  <input name="email" value="<?= $email ?>" type="email" class="form-control" id="exampleInputEmail1"
                     aria-describedby="emailHelp" />
                   <div id="emailHelp" class="form-text">
                     Ваш email адрес не будет использован для спама
                   </div>
                 </div>
                 <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label">Задайте пароль</label>
+                  <label for="exampleInputPassword1" class="form-label">Задайте новый пароль</label>
                   <input name="pass-first" type="password" class="form-control" id="exampleInputPassword1" />
                 </div>
                 <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label">Повторите пароль</label>
+                  <label for="exampleInputPassword1" class="form-label">Повторите новый пароль</label>
                   <input name="pass-second" type="password" class="form-control" id="exampleInputPassword1" />
                 </div>
                 <select name="role" class="form-select" aria-label="Default select example">
-                  <option selected value="1">User</option>
+                  <option selected value="0">User</option>
                   <option value="1">Admin</option>
                 </select>
                 <div class="col">
-                  <button name="btn-reg" class="btn btn-primary" type="submit">Добавить пользователя</button>
+                  <button name="edit-user" class="btn btn-primary" type="submit">Изменить пользователя</button>
                 </div>
               </form>
             </div>

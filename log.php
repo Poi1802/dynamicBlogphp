@@ -33,10 +33,8 @@ require_once __DIR__ . '/app/controllers/users.php';
       <div class="container">
         <div class="reg__inner">
           <h2 class="reg-title">Авторизация</h2>
-          <div class="reg-inf">
-            <p class="reg-error">
-              <?= $errMsg ?>
-            </p>
+          <div class="reg-error">
+            <?php include SITE_ROOT . '/app/helps/errInfo.php' ?>
           </div>
           <form method="post" action="log.php">
             <div class="mb-3">
