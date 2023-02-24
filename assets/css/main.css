@@ -216,6 +216,10 @@ a {
   margin-top: 15px;
   font-size: 14px;
 }
+.content .post__info-text img {
+  max-width: 880px;
+  object-fit: contain;
+}
 .content .post__info-text ul {
   display: block;
   list-style-type: disc;

@@ -3,7 +3,7 @@ include 'path.php';
 include 'app/controllers/topics.php';
 include 'app/controllers/posts.php';
 
-$topTopics = selectAll('posts', ['id_topic' => 12]);
+$topPosts = selectAll('posts', ['id_topic' => 12, 'status' => 1]);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,12 +38,13 @@ $topTopics = selectAll('posts', ['id_topic' => 12]);
         </div>
         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
-            <?php foreach ($topTopics as $key => $topic): ?>
+            <?php foreach ($topPosts as $key => $topPost): ?>
               <div class="carousel-item <?= $key === 0 ? 'active' : '' ?>">
-                <img src="./assets/image/posts/<?= $topic['img'] ?>" class="d-block w-100" alt="<?= $topic['title'] ?>" />
+                <img src="./assets/image/posts/<?= $topPost['img'] ?>" class="d-block w-100"
+                  alt="<?= $topPost['title'] ?>" />
                 <div class="carousel-caption d-none d-md-block">
-                  <h5><a href="single.php?post_id=<?= $topic['id'] ?>">
-                      <?= strlen($topic['title']) > 55 ? mb_substr($topic['title'], 0, 55) . '...' : $topic['title'] ?>
+                  <h5><a href="single.php?post_id=<?= $topPost['id'] ?>">
+                      <?= strlen($topPost['title']) > 55 ? mb_substr($topPost['title'], 0, 55) . '...' : $topPost['title'] ?>
                     </a></h5>
                 </div>
               </div>

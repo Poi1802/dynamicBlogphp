@@ -54,7 +54,6 @@ include __DIR__ . '/app/controllers/singlePost.php';
               </div>
             </div>
             <div class="post__info">
-              <h3 class="post-title">Lorem ipsum dolor sit amet.</h3>
               <div class="post__info-text">
                 <?= $post['content'] ?>
               </div>
