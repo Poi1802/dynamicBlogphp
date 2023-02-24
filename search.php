@@ -2,8 +2,14 @@
 include 'path.php';
 include 'app/controllers/topics.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search-text'])) {
-  $posts = selectPostsSearched('users', 'posts', $_POST['search-text']);
+if (empty($_GET)) {
+  $_SESSION['search'] = $_POST['search-text'];
+}
+
+$posts = selectPostsSearched('users', 'posts', $_SESSION['search']);
+
+if (isset($_GET['cat_id'])) {
+  $posts = array_filter($posts, fn($p) => $p['id_topic'] == $_GET['cat_id']);
 }
 ?>
 <!DOCTYPE html>
@@ -82,16 +88,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search-text'])) {
           <div class="content__sidebar">
             <form class="search" action="search.php" method="post">
               <h3 class="search__title">Поиск</h3>
-              <input name="search-text" class="search__input" value="<?= $_POST['search-text'] ?>" type="text"
+              <input name="search-text" class="search__input" value="<?= $_SESSION['search'] ?>" type="text"
                 placeholder="Веддите искомое слово..." />
             </form>
             <div class="categories">
               <h3 class="categories__title">Категории</h3>
               <ul class="categories__lists">
                 <?php foreach ($topics as $topic): ?>
-                  <li class="categories__list"><a href="">
+                  <li class="categories__list">
+                    <a href="?cat_id=<?= $topic['id'] ?>">
                       <?= $topic['name'] ?>
-                    </a></li>
+                    </a>
+                  </li>
                 <?php endforeach ?>
               </ul>
             </div>

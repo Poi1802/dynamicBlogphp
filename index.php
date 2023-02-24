@@ -4,6 +4,10 @@ include 'app/controllers/topics.php';
 include 'app/controllers/posts.php';
 
 $topPosts = selectAll('posts', ['id_topic' => 12, 'status' => 1]);
+
+if (isset($_GET['cat_id'])) {
+  $postsAdm = array_filter($postsAdm, fn($p) => $p['id_topic'] == $_GET['cat_id']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,40 +73,46 @@ $topPosts = selectAll('posts', ['id_topic' => 12, 'status' => 1]);
         <h3 class="content__title">Последние публикации</h3>
         <div class="content__inner">
           <div class="posts">
-            <?php foreach ($postsAdm as $key => $post): ?>
-              <?php if ($post['status']): ?>
-                <?php $content = strip_tags($post['content'], ['p', 'a', 'ul']) ?>
-                <div class="post">
-                  <div class="post__image">
-                    <img src="./assets/image/posts/<?= $post['img'] ?>" alt="<?= $post['title'] ?>" />
-                  </div>
-                  <div class="post__info">
-                    <h4 class="post__info-title">
-                      <a href="single.php?post_id=<?= $post['id'] ?>">
-                        <?= strlen($post['title']) > 75 ? mb_substr($post['title'], 0, 75) . '...' : $post['title'] ?>
-                      </a>
-                    </h4>
-                    <div class="post__info-user">
-                      <div class="user">
-                        <i class="fa-regular fa-user"></i>
-                        <span>
-                          <?= $post['username'] ?>
-                        </span>
+            <?php if ($postsAdm): ?>
+              <?php foreach ($postsAdm as $key => $post): ?>
+                <?php if ($post['status']): ?>
+                  <?php $content = strip_tags($post['content'], ['p', 'a', 'ul']) ?>
+                  <div class="post">
+                    <div class="post__image">
+                      <img src="./assets/image/posts/<?= $post['img'] ?>" alt="<?= $post['title'] ?>" />
+                    </div>
+                    <div class="post__info">
+                      <h4 class="post__info-title">
+                        <a href="single.php?post_id=<?= $post['id'] ?>">
+                          <?= strlen($post['title']) > 75 ? mb_substr($post['title'], 0, 75) . '...' : $post['title'] ?>
+                        </a>
+                      </h4>
+                      <div class="post__info-user">
+                        <div class="user">
+                          <i class="fa-regular fa-user"></i>
+                          <span>
+                            <?= $post['username'] ?>
+                          </span>
+                        </div>
+                        <div class="date">
+                          <i class="fa-solid fa-calendar-days"></i>
+                          <span>
+                            <?= $post['created_date'] ?>
+                          </span>
+                        </div>
                       </div>
-                      <div class="date">
-                        <i class="fa-solid fa-calendar-days"></i>
-                        <span>
-                          <?= $post['created_date'] ?>
-                        </span>
+                      <div class="post__info-text">
+                        <?= mb_substr($content, 0, 240) . '...' ?>
                       </div>
                     </div>
-                    <div class="post__info-text">
-                      <?= mb_substr($content, 0, 240) . '...' ?>
-                    </div>
                   </div>
-                </div>
-              <?php endif ?>
-            <?php endforeach ?>
+                <?php endif ?>
+              <?php endforeach ?>
+            <?php else: ?>
+              <h4>
+                <i>К сожалению статей нет :(</i>
+              </h4>
+            <?php endif ?>
           </div>
           <div class="content__sidebar">
             <form class="search" action="search.php" method="post">
@@ -113,7 +123,7 @@ $topPosts = selectAll('posts', ['id_topic' => 12, 'status' => 1]);
               <h3 class="categories__title">Категории</h3>
               <ul class="categories__lists">
                 <?php foreach ($topics as $topic): ?>
-                  <li class="categories__list"><a href="">
+                  <li class="categories__list"><a href="?cat_id=<?= $topic['id'] ?>">
                       <?= $topic['name'] ?>
                     </a></li>
                 <?php endforeach ?>

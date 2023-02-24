@@ -68,9 +68,11 @@ include __DIR__ . '/app/controllers/singlePost.php';
               <h3 class="categories__title">Категории</h3>
               <ul class="categories__lists">
                 <?php foreach ($topics as $topic): ?>
-                  <li class="categories__list"><a href="">
+                  <li class="categories__list">
+                    <a href="">
                       <?= $topic['name'] ?>
-                    </a></li>
+                    </a>
+                  </li>
                 <?php endforeach ?>
               </ul>
             </div>
