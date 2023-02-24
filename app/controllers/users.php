@@ -113,6 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit-user'])) {
   } else {
 
     $password = password_hash($_POST['pass-first'], PASSWORD_DEFAULT);
+
     $userP = [
       'username' => $login,
       'email' => $email,
@@ -134,6 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit-user'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['del_id'])) {
   $id = $_GET['del_id'];
   deleteRow('users', $id);
+  deleteRow('posts', $id, 'id_user');
   header("location: " . BASE_URL . '/admin/users');
 }
 

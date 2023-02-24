@@ -1,9 +1,11 @@
 <?php
 include 'path.php';
 include 'app/controllers/topics.php';
-include 'app/controllers/posts.php';
 
-$topTopics = selectAll('posts', ['id_topic' => 12]);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search-text'])) {
+  $posts = selectPostsSearched('users', 'posts', $_POST['search-text']);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,44 +33,12 @@ $topTopics = selectAll('posts', ['id_topic' => 12]);
   <div class=" wrapper">
     <?php include __DIR__ . '/app/include/header.php'; ?>
 
-    <section class="carousel">
-      <div class="container">
-        <div class="row">
-          <h2 class="carousel__title">Топ публикации</h2>
-        </div>
-        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <?php foreach ($topTopics as $key => $topic): ?>
-              <div class="carousel-item <?= $key === 0 ? 'active' : '' ?>">
-                <img src="./assets/image/posts/<?= $topic['img'] ?>" class="d-block w-100" alt="<?= $topic['title'] ?>" />
-                <div class="carousel-caption d-none d-md-block">
-                  <h5><a href="single.php?post_id=<?= $topic['id'] ?>">
-                      <?= strlen($topic['title']) > 55 ? mb_substr($topic['title'], 0, 55) . '...' : $topic['title'] ?>
-                    </a></h5>
-                </div>
-              </div>
-            <?php endforeach ?>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-      </div>
-    </section>
-
     <section class="content">
       <div class="container">
-        <h3 class="content__title">Последние публикации</h3>
+        <h3 class="content__title">Результаты поиска</h3>
         <div class="content__inner">
           <div class="posts">
-            <?php foreach ($postsAdm as $key => $post): ?>
+            <?php foreach ($posts as $key => $post): ?>
               <?php if ($post['status']): ?>
                 <?php $content = strip_tags($post['content'], ['p', 'a', 'ul']) ?>
                 <div class="post">
@@ -106,7 +76,8 @@ $topTopics = selectAll('posts', ['id_topic' => 12]);
           <div class="content__sidebar">
             <form class="search" action="search.php" method="post">
               <h3 class="search__title">Поиск</h3>
-              <input name="search-text" class="search__input" type="text" placeholder="Веддите искомое слово..." />
+              <input name="search-text" class="search__input" value="<?= $_POST['search-text'] ?>" type="text"
+                placeholder="Веддите искомое слово..." />
             </form>
             <div class="categories">
               <h3 class="categories__title">Категории</h3>

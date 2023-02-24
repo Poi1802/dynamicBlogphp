@@ -2,7 +2,7 @@
 require_once SITE_ROOT . "/app/database/db.php";
 
 $topics = selectAll('topics');
-// $posts = selectAll('posts');
+$posts = selectAll('posts');
 $postsAdm = selectPostsOfUsers('users', 'posts');
 
 $errMsg = [];
@@ -27,8 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_post'])) {
 
   if ($title === '' || $content === '' || $idTopic === '' || $img === '') {
     $errMsg[] = 'Все поля должны быть заполнены';
-  } elseif (mb_strlen($title, 'UTF-8') < 6) {
-    $errMsg[] = 'Название записи должно быть больше 6-и символов!';
+  } elseif (mb_strlen($title, 'UTF-8') < 8) {
+    $errMsg[] = 'Название записи должно быть больше 8-и символов!';
   } elseif (!is_numeric($idTopic)) {
     $errMsg[] = 'Выберите категорию';
   } else {
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_post'])) {
   if ($title === '' || $content === '' || $idTopic === '') {
     $errMsg = 'Все поля должны быть заполнены';
     setcookie('err', $errMsg, time() + 1);
-    header('location: ' . BASE_URL . "/admin/posts/edit.php?id=$id");
+    header('location: ' . BASE_URL . "/admin/posts/edit.php?id=" . $_POST['id']);
   } elseif (mb_strlen($title, 'UTF-8') < 8) {
     $errMsg = 'Название записи должно быть больше 8-и символов!';
     setcookie('err', $errMsg, time() + 1);
@@ -78,6 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_post'])) {
 
     $id = $_POST['id'];
     $res = update('posts', $id, $post);
+
     if ($img) {
       move_uploaded_file($imgTmpName, $destination);
       unlink(ROOT_PATH . '/assets/image/posts/' . $_POST['img_old']);

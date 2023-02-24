@@ -43,7 +43,7 @@ require_once SITE_ROOT . '/app/controllers/posts.php';
               </div>
               <form action="create.php" method="post" enctype="multipart/form-data">
                 <div class="col">
-                  <label for="exampleFormControlInput1" class="form-label">Название статьи</label>
+                  <label for="exampleFormControlInput1" class="form-label">Название статьи (больше 8-и символов)</label>
                   <input name="title" value="<?= $title ?>" type="text" class="form-control"
                     id="exampleFormControlInput1">
                 </div>

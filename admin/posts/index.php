@@ -55,9 +55,7 @@ require_once SITE_ROOT . '/app/controllers/posts.php';
                       <?= $key + 1 ?>
                     </div>
                     <div class="title">
-                      <a href="">
-                        <?= $post['title'] ?>
-                      </a>
+                      <?= strlen($post['title']) > 50 ? mb_substr($post['title'], 0, 40) . '...' : $post['title'] ?>
                     </div>
                     <div class="auth">
                       <?= $post['username'] ?>

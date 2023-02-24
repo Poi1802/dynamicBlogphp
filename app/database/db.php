@@ -124,10 +124,10 @@ function update($table, $id, array $params)
   return dbCheckErr($query);
 }
 // функция удаления данных из бд
-function deleteRow(string $table, int $id): void
+function deleteRow(string $table, int $id, $col = 'id'): void
 {
   global $pdo;
-  $sql = "DELETE FROM $table WHERE id=$id";
+  $sql = "DELETE FROM $table WHERE $col=$id";
   $pdo->query($sql);
 }
 
@@ -158,4 +158,17 @@ function selectPostsOfUser($tableUsers, $tablePosts, $postId)
   dbCheckErr($query);
 
   return $query->fetch();
+}
+
+function selectPostsSearched($tableUsers, $tablePosts, $searchText)
+{
+  global $pdo;
+  $searchText = trim(strip_tags($searchText));
+  $sql = "SELECT t1.username, t2.* FROM $tableUsers AS t1 JOIN $tablePosts as t2 WHERE t1.id = t2.id_user AND t2.title LIKE '%$searchText%' AND t2.title LIKE '%$searchText%'";
+  $query = $pdo->prepare($sql);
+  $query->execute();
+
+  dbCheckErr($query);
+
+  return $query->fetchAll();
 }

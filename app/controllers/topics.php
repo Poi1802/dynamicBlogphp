@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['topic-edit'])) {
     setcookie('err', $errMsg, time() + 1);
     header('location: ' . BASE_URL . 'admin/topics/edit.php?id=' . $_POST['id']);
   } elseif (mb_strlen($name, 'UTF-8') < 2) {
-    $errMsg = 'Категория должна быть больше 2 символов!123';
+    $errMsg = 'Категория должна быть больше 2 символов!';
     setcookie('err', $errMsg, time() + 1);
     header('location: ' . BASE_URL . 'admin/topics/edit.php?id=' . $_POST['id']);
   } else {
