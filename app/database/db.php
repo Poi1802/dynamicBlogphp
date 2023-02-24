@@ -139,7 +139,7 @@ function deleteRow(string $table, int $id, $col = 'id'): void
 function selectPostsOfUsers($tableUsers, $tablePosts)
 {
   global $pdo;
-  $sql = "SELECT t1.username, t2.* FROM $tableUsers AS t1 JOIN $tablePosts as t2 WHERE t1.id = t2.id_user";
+  $sql = "SELECT t1.username, t2.* FROM $tableUsers AS t1 JOIN $tablePosts as t2 ON t1.id = t2.id_user";
   $query = $pdo->prepare($sql);
   $query->execute();
 
@@ -151,7 +151,7 @@ function selectPostsOfUsers($tableUsers, $tablePosts)
 function selectPostsOfUser($tableUsers, $tablePosts, $postId)
 {
   global $pdo;
-  $sql = "SELECT t1.username, t2.* FROM $tableUsers AS t1 JOIN $tablePosts as t2 WHERE t1.id = t2.id_user AND t2.id = $postId";
+  $sql = "SELECT t1.username, t2.* FROM $tableUsers AS t1 JOIN $tablePosts as t2 ON t1.id = t2.id_user WHERE t2.id = $postId";
   $query = $pdo->prepare($sql);
   $query->execute();
 
@@ -163,8 +163,8 @@ function selectPostsOfUser($tableUsers, $tablePosts, $postId)
 function selectPostsSearched($tableUsers, $tablePosts, $searchText)
 {
   global $pdo;
-  $searchText = trim(strip_tags($searchText));
-  $sql = "SELECT t1.username, t2.* FROM $tableUsers AS t1 JOIN $tablePosts as t2 WHERE t1.id = t2.id_user AND t2.title LIKE '%$searchText%' AND t2.title LIKE '%$searchText%'";
+  $searchText = trim(strip_tags(stripslashes(htmlspecialchars($searchText))));
+  $sql = "SELECT t1.username, t2.* FROM $tableUsers AS t1 JOIN $tablePosts as t2 ON t1.id = t2.id_user WHERE t2.status = 1 AND t2.title LIKE '%$searchText%' OR t2.content LIKE '%$searchText%'";
   $query = $pdo->prepare($sql);
   $query->execute();
 

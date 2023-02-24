@@ -9,7 +9,7 @@ $options = [
 ];
 
 try {
-  $pdo = new PDO("mysql:host=$host;dbname=$dbName", $login, $password, $options);
+  $pdo = new PDO("mysql:host=$host;dbname=$dbName;charset=utf8", $login, $password, $options);
 } catch (PDOException $i) {
   die('Connection error database');
 }
