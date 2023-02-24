@@ -1,8 +1,8 @@
 <?php
 include 'path.php';
 include 'app/controllers/topics.php';
-include 'app/controllers/posts.php';
 
+$postsAdm = selectPostsOfUsersPubl('users', 'posts');
 $topPosts = selectAll('posts', ['id_topic' => 12, 'status' => 1]);
 
 if (isset($_GET['cat_id'])) {
@@ -75,38 +75,36 @@ if (isset($_GET['cat_id'])) {
           <div class="posts">
             <?php if ($postsAdm): ?>
               <?php foreach ($postsAdm as $key => $post): ?>
-                <?php if ($post['status']): ?>
-                  <?php $content = strip_tags($post['content'], ['p', 'a', 'ul']) ?>
-                  <div class="post">
-                    <div class="post__image">
-                      <img src="./assets/image/posts/<?= $post['img'] ?>" alt="<?= $post['title'] ?>" />
+                <?php $content = strip_tags($post['content'], ['p', 'a', 'ul']) ?>
+                <div class="post">
+                  <div class="post__image">
+                    <img src="./assets/image/posts/<?= $post['img'] ?>" alt="<?= $post['title'] ?>" />
+                  </div>
+                  <div class="post__info">
+                    <h4 class="post__info-title">
+                      <a href="single.php?post_id=<?= $post['id'] ?>">
+                        <?= strlen($post['title']) > 75 ? mb_substr($post['title'], 0, 75) . '...' : $post['title'] ?>
+                      </a>
+                    </h4>
+                    <div class="post__info-user">
+                      <div class="user">
+                        <i class="fa-regular fa-user"></i>
+                        <span>
+                          <?= $post['username'] ?>
+                        </span>
+                      </div>
+                      <div class="date">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <span>
+                          <?= $post['created_date'] ?>
+                        </span>
+                      </div>
                     </div>
-                    <div class="post__info">
-                      <h4 class="post__info-title">
-                        <a href="single.php?post_id=<?= $post['id'] ?>">
-                          <?= strlen($post['title']) > 75 ? mb_substr($post['title'], 0, 75) . '...' : $post['title'] ?>
-                        </a>
-                      </h4>
-                      <div class="post__info-user">
-                        <div class="user">
-                          <i class="fa-regular fa-user"></i>
-                          <span>
-                            <?= $post['username'] ?>
-                          </span>
-                        </div>
-                        <div class="date">
-                          <i class="fa-solid fa-calendar-days"></i>
-                          <span>
-                            <?= $post['created_date'] ?>
-                          </span>
-                        </div>
-                      </div>
-                      <div class="post__info-text">
-                        <?= mb_substr($content, 0, 240) . '...' ?>
-                      </div>
+                    <div class="post__info-text">
+                      <?= mb_substr($content, 0, 240) . '...' ?>
                     </div>
                   </div>
-                <?php endif ?>
+                </div>
               <?php endforeach ?>
             <?php else: ?>
               <h4>

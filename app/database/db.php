@@ -148,6 +148,18 @@ function selectPostsOfUsers($tableUsers, $tablePosts)
   return $query->fetchAll();
 }
 
+function selectPostsOfUsersPubl($tableUsers, $tablePosts)
+{
+  global $pdo;
+  $sql = "SELECT t1.username, t2.* FROM $tableUsers AS t1 JOIN $tablePosts as t2 ON t1.id = t2.id_user WHERE t2.status = 1";
+  $query = $pdo->prepare($sql);
+  $query->execute();
+
+  dbCheckErr($query);
+
+  return $query->fetchAll();
+}
+
 function selectPostsOfUser($tableUsers, $tablePosts, $postId)
 {
   global $pdo;
