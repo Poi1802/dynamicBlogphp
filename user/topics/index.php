@@ -1,5 +1,6 @@
 <?php
-require_once "../../app/controllers/commentaries.php";
+include "../../path.php";
+include SITE_ROOT . "/app/controllers/topics.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +27,7 @@ require_once "../../app/controllers/commentaries.php";
 
 <body>
   <div class=" wrapper">
-    <?php include "../../app/include/header-admin.php" ?>
+    <?php include "../../app/include/header-admin.php"; ?>
 
     <section class="content">
       <div class="container">
@@ -34,34 +35,33 @@ require_once "../../app/controllers/commentaries.php";
           <div class="content__sidebar">
             <?php include "../../app/include/categories-user.php" ?>
           </div>
-          <div class="posts comments">
+          <div class="posts">
             <div class="posts-table ">
-              <h2 class="table-title">Управление комментариями</h2>
+              <h2 class="table-title">Управление категориями</h2>
+              <div class="button-add">
+                <a href="create.php" class="btn btn-succes">Создать категорию</a>
+              </div>
               <div class="row-admin">
-                <div class="id">ID POST</div>
-                <div class="title">Коммент</div>
+                <div class="id">ID</div>
+                <div class="title">Название</div>
                 <div class="manage">Управление</div>
               </div>
 
-              <div class="comments-rows">
-                <?php foreach ($commentsAdm as $key => $comment): ?>
-                  <?php if ($comment['user'] === $_SESSION['login']): ?>
+              <div class="posts-rows">
+                <?php foreach ($topics as $key => $topic): ?>
+                  <?php if ($topic['id_user'] === $_SESSION['id']): ?>
                     <div class="post-row">
                       <div class="id">
-                        <?= $comment['id_post'] ?>
+                        <?= $key + 1 ?>
                       </div>
-                      <div class=" title">
-                        <a href="<?= BASE_URL ?>single.php?post_id=<?= $comment['id_post'] ?>">
-                          <a href="<?= BASE_URL ?>single.php?post_id=<?= $comment['id_post'] ?>">
-                            <?= strlen($comment['comment']) > 120 ? mb_substr($comment['comment'], 0, 120) . '...' : $comment['comment'] ?>
-                          </a>
-                        </a>
+                      <div class="title">
+                        <?= $topic['name'] ?>
                       </div>
                       <div class="edit">
-                        <a href=<?= BASE_URL . "single.php?post_id=$comment[id_post]&edit=1" ?>>Редакт.</a>
+                        <a href="edit.php?id=<?= $topic['id'] ?>">Редакт.</a>
                       </div>
                       <div class="del">
-                        <a href="?del_id=<?= $comment['id'] ?>">Удалить</a>
+                        <a href="edit.php?del_id-user=<?= $topic['id'] ?>">Удалить</a>
                       </div>
                     </div>
                   <?php endif ?>

@@ -87,8 +87,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn-log'])) {
   }
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
-  $id = $_GET['id'];
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id']) || isset($_GET['id-user'])) {
+  $id = isset($_GET['id']) ? $_GET['id'] : $_GET['id-user'];
   $user = selectOne('users', ['id' => $id]);
   $login = $user['username'];
   $email = $user['email'];
@@ -129,6 +129,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit-user'])) {
     update('users', $id, $passF ? $userP : $user);
     unset($_SESSION['errMsg']);
     header('location: ' . BASE_URL . '/admin/users');
+  }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit-user-login'])) {
+  $id = $_POST['id'];
+  $login = trim($_POST['login']);
+
+  if (mb_strlen($login, 'UTF-8') < 2) {
+    $errMsg = 'Логин должен быть больше 2 символов!';
+    setcookie('err', $errMsg, time() + 1);
+    header('location: ' . BASE_URL . 'user/profile/edit.php?log=1&id-user=' . $_POST['id']);
+  } else {
+    update('users', $id, ['username' => $login]);
+    unset($_SESSION['errMsg']);
+    header('location: ' . BASE_URL . '/user/profile');
+  }
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit-user-email'])) {
+  $id = $_POST['id'];
+  $email = trim($_POST['email']);
+
+  if (mb_strlen($email, 'UTF-8') === 0) {
+    $errMsg = 'EMAIL не должен быть пустой!';
+    setcookie('err', $errMsg, time() + 1);
+    header('location: ' . BASE_URL . 'user/profile/edit.php?email=1&id=' . $_POST['id']);
+  } else {
+    update('users', $id, ['email' => $email]);
+    unset($_SESSION['errMsg']);
+    header('location: ' . BASE_URL . '/user/profile');
+  }
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit-user-pass'])) {
+  $id = $_POST['id'];
+  $passF = trim($_POST['pass-first']);
+  $passS = trim($_POST['pass-second']);
+
+  if ($passF === '') {
+    $errMsg = 'Все поля должны быть заполнены!';
+    setcookie('err', $errMsg, time() + 1);
+    header('location: ' . BASE_URL . 'user/profile/edit.php?pass=1&id=' . $_POST['id']);
+  } elseif ($passF !== $passS) {
+    $errMsg = 'Пароли в обоих полях должны совпадать';
+    setcookie('err', $errMsg, time() + 1);
+    header('location: ' . BASE_URL . 'user/profile/edit.php?pass=1&id=' . $_POST['id']);
+  } else {
+    $password = password_hash($_POST['pass-first'], PASSWORD_DEFAULT);
+    update('users', $id, ['password' => $password]);
+    unset($_SESSION['errMsg']);
+    header('location: ' . BASE_URL . '/user/profile');
   }
 }
 

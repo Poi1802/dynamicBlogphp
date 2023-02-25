@@ -9,7 +9,7 @@ $descr = '';
 $id = '';
 
 // Код формы добавления категорий
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['topic-btn'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['topic-btn']) || isset($_POST['topic-btn-user'])) {
   $name = trim($_POST['name']);
   $descr = trim($_POST['description']);
 
@@ -25,18 +25,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['topic-btn'])) {
     } else {
       $topic = [
         'name' => $name,
-        'description' => $descr
+        'description' => $descr,
+        'id_user' => $_SESSION['id']
       ];
 
       $id = insert('topics', $topic);
       $topic = selectOne('topics', ['id' => $id]);
-      header('location: ' . BASE_URL . 'admin/topics');
+      $_POST['topic-btn'] ? header('location: ' . BASE_URL . 'admin/topics') : header('location: ' . BASE_URL . 'user/topics');
     }
   }
 }
 
 // Код формы изменения категорий
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['topic-edit'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['topic-edit']) || isset($_POST['topic-edit-user'])) {
   $name = trim($_POST['name']);
   $descr = trim($_POST['description']);
 
@@ -57,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['topic-edit'])) {
     $id = $_POST['id'];
     update('topics', $id, $topic);
     unset($_SESSION['errMsg']);
-    header('location: ' . BASE_URL . 'admin/topics');
+    $_POST['topic-edit'] ? header('location: ' . BASE_URL . 'admin/topics') : header('location: ' . BASE_URL . 'user/topics');
   }
 }
 
@@ -68,8 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
   $descr = $topic['description'];
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['del_id'])) {
-  $id = $_GET['del_id'];
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['del_id']) || isset($_GET['del_id-user'])) {
+  $id = $_GET['del_id'] ? $_GET['del_id'] : $_GET['del_id-user'];
   deleteRow('topics', $id);
-  header('location: ' . BASE_URL . 'admin/topics');
+  $_GET['del_id'] ? header('location: ' . BASE_URL . 'admin/topics') : header('location: ' . BASE_URL . 'user/topics');
 }

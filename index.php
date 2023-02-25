@@ -109,7 +109,7 @@ if (isset($_GET['cat_id'])) {
                       </div>
                     </div>
                     <div class="post__info-text">
-                      <?= mb_substr($content, 0, 240) . '...' ?>
+                      <?= mb_substr($content, 0, 160) . '...' ?>
                     </div>
                   </div>
                 </div>

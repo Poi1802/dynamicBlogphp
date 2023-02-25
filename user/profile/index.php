@@ -1,5 +1,7 @@
 <?php
-require_once "../../app/controllers/commentaries.php";
+include "../../path.php";
+include SITE_ROOT . "/app/controllers/users.php";
+$user = selectOne('users', ['id' => $_SESSION['id']]);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +28,7 @@ require_once "../../app/controllers/commentaries.php";
 
 <body>
   <div class=" wrapper">
-    <?php include "../../app/include/header-admin.php" ?>
+    <?php include "../../app/include/header-admin.php"; ?>
 
     <section class="content">
       <div class="container">
@@ -34,44 +36,42 @@ require_once "../../app/controllers/commentaries.php";
           <div class="content__sidebar">
             <?php include "../../app/include/categories-user.php" ?>
           </div>
-          <div class="posts comments">
-            <div class="posts-table ">
-              <h2 class="table-title">Управление комментариями</h2>
+          <div class="posts">
+            <div class="posts-table  user-acc">
+              <h2 class="table-title">Настройки профиля</h2>
+              <!-- <div class="button-add">
+                <a href="create.php" class="btn btn-succes">Создать пользователя</a>
+              </div> -->
               <div class="row-admin">
-                <div class="id">ID POST</div>
-                <div class="title">Коммент</div>
-                <div class="manage">Управление</div>
+                <div class="col-4 title">
+                  <a href="edit.php?id-user=<?= $user['id'] ?>&log=1">Изменить логин</a>
+                </div>
+                <div class="col-2 email">
+                  <a href="edit.php?id-user=<?= $user['id'] ?>&email=1">Изменить Email</a>
+                </div>
+                <div class="col-4 manage">Управление</div>
               </div>
 
-              <div class="comments-rows">
-                <?php foreach ($commentsAdm as $key => $comment): ?>
-                  <?php if ($comment['user'] === $_SESSION['login']): ?>
-                    <div class="post-row">
-                      <div class="id">
-                        <?= $comment['id_post'] ?>
-                      </div>
-                      <div class=" title">
-                        <a href="<?= BASE_URL ?>single.php?post_id=<?= $comment['id_post'] ?>">
-                          <a href="<?= BASE_URL ?>single.php?post_id=<?= $comment['id_post'] ?>">
-                            <?= strlen($comment['comment']) > 120 ? mb_substr($comment['comment'], 0, 120) . '...' : $comment['comment'] ?>
-                          </a>
-                        </a>
-                      </div>
-                      <div class="edit">
-                        <a href=<?= BASE_URL . "single.php?post_id=$comment[id_post]&edit=1" ?>>Редакт.</a>
-                      </div>
-                      <div class="del">
-                        <a href="?del_id=<?= $comment['id'] ?>">Удалить</a>
-                      </div>
-                    </div>
-                  <?php endif ?>
-                <?php endforeach ?>
+              <div class="posts-rows">
+                <div class="post-row">
+                  <div class="title">
+                    <?= $user['username'] ?>
+                  </div>
+                  <div class="email">
+                    <?= $user['email'] ?>
+                  </div>
+                  <div class="edit">
+                    <a href="edit.php?id-user=<?= $user['id'] ?>&pass=1">Изменить пароль</a>
+                  </div>
+                  <div class="del">
+                    <a href="edit.php?del_id-user=<?= $user['id'] ?>">Удалить себя</a>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
 
+          </div>
         </div>
-      </div>
     </section>
 
     <?php include "../../app/include/footer.php"; ?>
