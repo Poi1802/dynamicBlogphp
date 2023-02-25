@@ -2,12 +2,20 @@
 include 'path.php';
 include 'app/controllers/topics.php';
 
-$postsAdm = selectPostsOfUsersPubl('users', 'posts');
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$limit = 2;
+$offset = $limit * ($page - 1);
+$totalPages = round(countOfPublPosts('posts') / $limit);
+
+$postsAdm = selectPostsOfUsersPubl('users', 'posts', $limit, $offset);
 $topPosts = selectAll('posts', ['id_topic' => 12, 'status' => 1]);
 
 if (isset($_GET['cat_id'])) {
-  $postsAdm = array_filter($postsAdm, fn($p) => $p['id_topic'] == $_GET['cat_id']);
+  $cat_id = $_GET['cat_id'];
+  $postsAdm = selectPostsOfUsersPubl('users', 'posts', $limit, $offset, $cat_id);
+  $totalPages = round(countOfPublPosts('posts', $cat_id) / $limit);
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -111,6 +119,7 @@ if (isset($_GET['cat_id'])) {
                 <i>К сожалению статей нет :(</i>
               </h4>
             <?php endif ?>
+            <?php include SITE_ROOT . '/app/include/pagination.php' ?>
           </div>
           <div class="content__sidebar">
             <form class="search" action="search.php" method="post">
@@ -131,7 +140,6 @@ if (isset($_GET['cat_id'])) {
         </div>
       </div>
     </section>
-
     <?php include __DIR__ . '/app/include/footer.php'; ?>
   </div>
   <!-- bootstrap scriprt -->

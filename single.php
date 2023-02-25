@@ -69,7 +69,7 @@ include __DIR__ . '/app/controllers/singlePost.php';
               <ul class="categories__lists">
                 <?php foreach ($topics as $topic): ?>
                   <li class="categories__list">
-                    <a href="">
+                    <a href="index.php?cat_id=<?= $topic['id'] ?>">
                       <?= $topic['name'] ?>
                     </a>
                   </li>

@@ -170,6 +170,10 @@ a {
   margin: 35px 0;
 }
 .content .posts {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 20px;
   width: 73%;
 }
 .content .post {
@@ -188,7 +192,7 @@ a {
   height: 100%;
   object-fit: cover;
   padding: 3px;
-  width: 100%;
+  width: 295px;
 }
 .content .post__info {
   width: 100%;
@@ -228,6 +232,12 @@ a {
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   padding-inline-start: 40px;
+}
+.content .post__info-text a {
+  color: #1b69ce;
+}
+.content .post__info-text a:hover {
+  text-decoration: underline;
 }
 .content .single-post {
   padding: 4px;

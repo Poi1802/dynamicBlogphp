@@ -148,16 +148,38 @@ function selectPostsOfUsers($tableUsers, $tablePosts)
   return $query->fetchAll();
 }
 
-function selectPostsOfUsersPubl($tableUsers, $tablePosts)
+function selectPostsOfUsersPubl($tableUsers, $tablePosts, $limit, $offset, $category = null)
 {
   global $pdo;
-  $sql = "SELECT t1.username, t2.* FROM $tableUsers AS t1 JOIN $tablePosts as t2 ON t1.id = t2.id_user WHERE t2.status = 1";
+  $sql = $category
+    ? "SELECT t1.username, t2.* 
+      FROM $tableUsers AS t1 
+      JOIN $tablePosts as t2 ON t1.id = t2.id_user 
+      WHERE t2.status = 1 AND t2.id_topic = $category LIMIT $limit OFFSET $offset"
+    : "SELECT t1.username, t2.* 
+      FROM $tableUsers AS t1 
+      JOIN $tablePosts as t2 ON t1.id = t2.id_user 
+      WHERE t2.status = 1 LIMIT $offset, $limit";
   $query = $pdo->prepare($sql);
   $query->execute();
 
   dbCheckErr($query);
 
   return $query->fetchAll();
+}
+
+function countOfPublPosts($table, $category = null)
+{
+  global $pdo;
+  $sql = $category
+    ? "SELECT COUNT(*) FROM $table WHERE id_topic = $category AND status = 1"
+    : "SELECT COUNT(*) FROM $table WHERE status = 1";
+  $query = $pdo->prepare($sql);
+  $query->execute();
+  $col = $query->fetchColumn();
+
+  dbCheckErr($query);
+  return $col;
 }
 
 function selectPostsOfUser($tableUsers, $tablePosts, $postId)
@@ -172,15 +194,37 @@ function selectPostsOfUser($tableUsers, $tablePosts, $postId)
   return $query->fetch();
 }
 
-function selectPostsSearched($tableUsers, $tablePosts, $searchText)
+function selectPostsSearched($tableUsers, $tablePosts, $searchText, $limit, $offset, $category = null)
 {
   global $pdo;
   $searchText = trim(strip_tags(stripslashes(htmlspecialchars($searchText))));
-  $sql = "SELECT t1.username, t2.* FROM $tableUsers AS t1 JOIN $tablePosts as t2 ON t1.id = t2.id_user WHERE t2.status = 1 AND t2.title LIKE '%$searchText%' OR t2.content LIKE '%$searchText%'";
+  $sql = $category
+    ? "SELECT t1.username, t2.* 
+      FROM $tableUsers AS t1 
+      JOIN $tablePosts as t2 ON t1.id = t2.id_user 
+      WHERE t2.status = 1 AND t2.id_topic = $category AND (t2.title LIKE '%$searchText%' OR t2.content LIKE '%$searchText%') LIMIT $limit OFFSET $offset"
+    : "SELECT t1.username, t2.* 
+      FROM $tableUsers AS t1 
+      JOIN $tablePosts as t2 ON t1.id = t2.id_user 
+      WHERE t2.status = 1  AND (t2.title LIKE '%$searchText%' OR t2.content LIKE '%$searchText%') LIMIT $limit OFFSET $offset";
   $query = $pdo->prepare($sql);
   $query->execute();
 
   dbCheckErr($query);
-
   return $query->fetchAll();
+}
+
+function countOfSearchPublPosts($table, $searchText, $category = null)
+{
+  global $pdo;
+  $searchText = trim(strip_tags(stripslashes(htmlspecialchars($searchText))));
+  $sql = $category != null
+    ? "SELECT COUNT(*) FROM $table WHERE id_topic = $category AND status = 1 AND (title LIKE '%$searchText%' OR content LIKE '%$searchText%')"
+    : "SELECT COUNT(*) FROM $table WHERE status = 1 AND (title LIKE '%$searchText%' OR content LIKE '%$searchText%')";
+  $query = $pdo->prepare($sql);
+  $query->execute();
+  $col = $query->fetchColumn();
+
+  dbCheckErr($query);
+  return $col;
 }
