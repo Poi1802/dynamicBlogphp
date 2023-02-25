@@ -24,6 +24,8 @@
                   <li class="header__list">
                     <?php if ($_SESSION['admin']): ?>
                       <a href="<?php echo BASE_URL . 'admin/posts' ?>">Админ панель</a>
+                    <?php elseif (!$_SESSION['admin']): ?>
+                      <a href="<?php echo BASE_URL . 'user/posts' ?>">Панель управления</a>
                     <?php endif; ?>
                   </li>
                   <li class="header__list">

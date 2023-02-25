@@ -1,8 +1,8 @@
 <?php
-include "../../path.php";
-include "../database/db.php";
+include SITE_ROOT . "/app/database/db.php";
 
-$postId = $_POST['post-id'];
+$commentsAdm = selectAll('comments');
+$postId = isset($_POST['post-id']) ? $_POST['post-id'] : '';
 $user = isset($_SESSION['login']) ? $_SESSION['login'] : '';
 $content = '';
 $errMsg = [];
@@ -25,4 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add-comm'])) {
     insert('comments', $comment);
     header('location: ' . BASE_URL . '/single.php?post_id=' . $postId);
   }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['del_id'])) {
+  deleteRow('comments', $_GET['del_id']);
+  header('location: ' . BASE_URL . 'admin/comments');
 }

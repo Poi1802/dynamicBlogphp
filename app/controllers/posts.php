@@ -15,7 +15,7 @@ $id = '';
 
 
 // Код формы добавления категорий
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_post'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_post']) || isset($_POST['add_post-user'])) {
 
   include SITE_ROOT . '/app/helps/checkImg.php';
 
@@ -44,12 +44,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_post'])) {
     $id = insert('posts', $post);
     $post = selectOne('posts', ['id' => $id]);
     move_uploaded_file($imgTmpName, $destination);
-    header('location: ' . BASE_URL . 'admin/posts');
+    $_POST['add_post'] ? header('location: ' . BASE_URL . 'admin/posts') : header('location: ' . BASE_URL . 'user/posts');
   }
 }
 
 // Код формы изменения категорий
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_post'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_post']) || isset($_POST['edit_post-user'])) {
 
   include SITE_ROOT . '/app/helps/checkImg.php';
 
@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_post'])) {
       unlink(ROOT_PATH . '/assets/image/posts/' . $_POST['img_old']);
     }
     unset($_SESSION['errMsg']);
-    header('location: ' . BASE_URL . 'admin/posts');
+    $_POST['edit_post'] ? header('location: ' . BASE_URL . 'admin/posts') : header('location: ' . BASE_URL . 'user/posts');
   }
 }
 
@@ -99,16 +99,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
   $img = $post['img'];
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['del_id'])) {
-  $id = $_GET['del_id'];
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['del_id']) || isset($_GET['del_id-user'])) {
+  $id = $_GET['del_id'] ? $_GET['del_id'] : $_GET['del_id-user'];
   $post = selectOne('posts', ['id' => $id]);
   unlink(ROOT_PATH . '/assets/image/posts/' . $post['img']);
   deleteRow('posts', $id);
-  header('location: ' . BASE_URL . 'admin/posts');
+  $_GET['del_id'] ? header('location: ' . BASE_URL . 'admin/posts') : header('location: ' . BASE_URL . 'user/posts');
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['publ'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['publ']) || isset($_GET['publ-user'])) {
   $id = $_GET['id'];
-  update('posts', $id, ['status' => $_GET['publ']]);
-  header('location: ' . BASE_URL . 'admin/posts');
+  update('posts', $id, ['status' => $_GET['publ'] ? $_GET['publ'] : $_GET['publ-user']]);
+  $_GET['publ'] ? header('location: ' . BASE_URL . 'admin/posts') : header('location: ' . BASE_URL . 'user/posts');
 }
