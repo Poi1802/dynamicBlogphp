@@ -1,0 +1,306 @@
+
+body
+  width: 100%
+  position: relative
+  font-family: 'Comfortaa', cursive
+  color: #5c5b5b
+  background-color: #f6f6f6
+ul
+  list-style: none
+  margin: 0
+  padding: 0
+a
+  text-decoration: none
+  color: #5c5b5b
+  transition: 0.3s ease-in-out
+.wrapper
+  min-height: 100vh
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+
+.container
+  max-width: 1220px
+  padding: 0 10px
+  margin: 0px auto
+  height: 100%
+
+.header
+  background-color: #1fa4a8
+  height: 70px
+  *
+    color: #fff
+  h1
+    margin: 0
+  i
+    transition: 0.3s ease-in-out
+
+  &__nav
+    position: relative
+
+  &__logo
+    cursor: default
+
+  &__inner
+    height: 100%
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+  &__lists
+    display: flex
+    align-items: center
+    justify-content: space-between
+
+  &__list
+    display: flex
+    align-items: center
+    transition: .4s ease-in-out
+    width: 100%
+    a
+      padding: 23px 15px
+
+    &:hover
+      background-color: darken(#1fa4a8, 5%)
+      .header__popup
+        display: block
+
+  &__list + &__list
+    margin-left: 15px
+    position: relative
+    i
+      position: relative
+      top: -2px
+      left: 10px
+
+  &__popup
+    display: none
+    position: absolute
+    background-color: #fff
+    top: 70px
+    right: 0px
+    width: 100%
+    z-index: 111
+
+    .header__list
+      margin: 0
+      a
+        width: 93px
+        color: #1fa4a8
+
+      &:hover
+        background-color: darken(#1fa4a8, 5%)
+        a
+          color: #fff
+
+.carousel
+  .row
+    text-align: center
+    margin-bottom: 30px
+  .container
+    margin-top: 30px
+  &-item
+    height: 400px
+    a
+      color: #fff
+  &-inner
+    border-radius: 10px
+  &-caption
+    background-color: #000
+    opacity: 0.6
+    padding-bottom: 0.5rem
+    padding-top: 0.5rem
+    h5
+      margin: 0
+      color: #ffffff
+      opacity: 1
+      a
+        position: relative
+        &:after
+          display: block
+          position: absolute
+          background-color: #ffffff
+          left: 0
+          height: 2px
+          width: 0
+          content: ''
+          transition: .3s ease-in-out
+        &:hover:after,
+        &:focus:after
+          width: 100%
+
+.content
+
+  &__inner
+    display: flex
+    justify-content: space-between
+  &__title
+    margin: 35px 0
+  .posts
+    width: 73%
+
+  .post
+    font-weight: 700
+    display: flex
+    margin-bottom: 30px
+
+    &__image
+      width: 65%
+      border: 1px solid #c4c4c4
+      border-radius: 5px
+      margin-right: 10px
+      img
+        height: 100%
+        padding: 3px
+        width: 100%
+
+    &__info
+      border-radius: 6px
+      padding-left: 6px
+      background-color: #ffffff
+      &-title
+        max-width: 400px
+        margin-top: 20px
+        cursor: pointer
+        &:hover
+          text-decoration: underline
+      &-user
+        display: flex
+        margin-top: 15px
+        .user
+          margin-right: 10px
+      &-text
+        margin-top: 15px
+        font-size: 14px
+
+  &__sidebar
+    width: 280px
+
+    .search
+      border-radius: 6px
+      background-color: #ffffff
+      padding-left: 14px
+      padding-bottom: 20px
+      &__title
+        padding-top: 15px
+      &__input
+        border-radius: 6px
+        border-width: 1px
+        border-color: #e0e0e0
+        width: 250px
+        height: 50px
+
+    .categories
+      border-radius: 6px
+      margin-top: 20px
+      background-color: #ffffff
+      padding: 20px 14px
+      &__list
+        font-weight: 800
+        padding: 14px 0
+        border-bottom: 1px solid
+        border-color: #d7d7d7
+        cursor: pointer
+        transition: .3s ease-in-out
+        &:hover
+          transform: translateX(10px)
+
+.footer
+
+  width: 100%
+  background-color: #222222
+  color: #c7c7c7
+
+  &__inner
+    padding-top: 20px
+    display: flex
+    justify-content: space-between
+
+  &__myblog
+    width: 30%
+    &-phone
+      margin-bottom: 8px
+    &-email
+      margin-bottom: 8px
+    &-myMedia
+      i
+        padding: 8px
+        font-size: 20px
+        cursor: pointer
+        margin-right: 5px
+        border: 1px solid
+        border-color: #575757
+        border-radius: 6px
+
+  &__links
+    width: 28%
+    &-title
+      margin-bottom: 30px
+    &-list
+      list-style: disc
+      margin-left: 30px
+      margin-bottom: 18px
+      cursor: pointer
+      transition: .25s ease-in-out
+      &:hover
+        transform: translateX(15px)
+
+  &__contacts
+    width: 29%
+    &-form
+      input
+        margin-bottom: 10px
+        width: 100%
+        height: 50px
+        border: none
+        background-color: #161616
+        color: #bebebe
+        padding-left: 10px
+        &:focus
+          background-color: darken(#161616, 5%)
+      textarea
+        width: 100%
+        border: none
+        background-color: #161616
+        color: #bebebe
+        padding-left: 10px
+        padding-top: 12px
+        &:focus
+          background-color: darken(#161616, 5%)
+
+  &__copyright
+    background-color: lighten(#222222, 7%)
+    padding: 6px 0
+    text-align: center
+    span
+      border-left: 2px solid
+      padding-left: 4px
+
+// Reg
+.reg
+
+  flex: 1 1 auto
+  input
+    height: 2.5rem
+  &-title
+    margin-bottom: 20px
+  &__inner
+    margin: 40px auto
+    width: 35%
+  .form__buttons
+    display: flex
+    justify-content: space-between
+    .form__button
+      border-color: #5c5b5b
+      background-color: #5c5b5b
+      transition: .3s ease-in-out
+      &-reg:hover
+        background-color: darken(#5c5b5b, 8%)
+
+      &-log
+        border: none
+        background-color: #f6f6f6
+        color: #5c5b5b
+        text-decoration: underline
+        &:hover
+          transform: translateX(-10px)

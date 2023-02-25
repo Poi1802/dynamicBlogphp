@@ -5,7 +5,7 @@ include 'app/controllers/topics.php';
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $limit = 3;
 $offset = $limit * ($page - 1);
-$totalPages = round(countOfPublPosts('posts') / $limit);
+$totalPages = ceil(countOfPublPosts('posts') / $limit);
 
 $postsAdm = selectPostsOfUsersPubl('users', 'posts', $limit, $offset);
 $topPosts = selectAll('posts', ['id_topic' => 12, 'status' => 1]);
@@ -13,7 +13,7 @@ $topPosts = selectAll('posts', ['id_topic' => 12, 'status' => 1]);
 if (isset($_GET['cat_id'])) {
   $cat_id = $_GET['cat_id'];
   $postsAdm = selectPostsOfUsersPubl('users', 'posts', $limit, $offset, $cat_id);
-  $totalPages = round(countOfPublPosts('posts', $cat_id) / $limit);
+  $totalPages = ceil(countOfPublPosts('posts', $cat_id) / $limit);
 }
 
 ?>
@@ -50,7 +50,7 @@ if (isset($_GET['cat_id'])) {
         </div>
         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
-            <?php foreach ($topPosts as $key => $topPost): ?>
+            <?php foreach (array_reverse($topPosts) as $key => $topPost): ?>
               <div class="carousel-item <?= $key === 0 ? 'active' : '' ?>">
                 <img src="./assets/image/posts/<?= $topPost['img'] ?>" class="d-block w-100"
                   alt="<?= $topPost['title'] ?>" />

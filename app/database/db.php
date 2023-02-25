@@ -155,11 +155,11 @@ function selectPostsOfUsersPubl($tableUsers, $tablePosts, $limit, $offset, $cate
     ? "SELECT t1.username, t2.* 
       FROM $tableUsers AS t1 
       JOIN $tablePosts as t2 ON t1.id = t2.id_user 
-      WHERE t2.status = 1 AND t2.id_topic = $category LIMIT $limit OFFSET $offset"
+      WHERE t2.status = 1 AND t2.id_topic = $category ORDER BY t2.created_date DESC LIMIT $limit OFFSET $offset"
     : "SELECT t1.username, t2.* 
       FROM $tableUsers AS t1 
       JOIN $tablePosts as t2 ON t1.id = t2.id_user 
-      WHERE t2.status = 1 LIMIT $offset, $limit";
+      WHERE t2.status = 1 ORDER BY t2.created_date DESC LIMIT $offset, $limit";
   $query = $pdo->prepare($sql);
   $query->execute();
 
