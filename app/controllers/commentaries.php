@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add-comm'])) {
 
   if ($content === '') {
     $errMsg[] = 'Все поля должны быть заполнены';
-  } elseif (mb_strlen($content, 'UTF-8') < 20) {
+  } elseif (mb_strlen($content, 'UTF-8') < 10) {
     $errMsg[] = 'Комментарий должен быть больше 20 символов!';
   } else {
 

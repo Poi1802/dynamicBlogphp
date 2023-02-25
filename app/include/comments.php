@@ -16,7 +16,7 @@ $comments = selectAll('comments', ['id_post' => $postId]);
       <div class="mb-3">
         <label for="exampleFormControlTextarea1" class="form-label">Ваш комментарий: </label>
         <textarea name="comm-content" class="form-control" id="exampleFormControlTextarea1"
-          placeholder="<?= $_SESSION['login'] . ' введите ваш комментарий' ?>" rows="3"></textarea>
+          placeholder="<?= $_SESSION['login'] . ' введите ваш комментарий (больше 10-и символов)' ?>" rows="3"></textarea>
       </div>
       <button name="add-comm" class="btn btn-primary" type="submit">Оставить комментарий</button>
     </form>

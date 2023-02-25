@@ -36,9 +36,6 @@ include __DIR__ . '/app/controllers/singlePost.php';
         </h3>
         <div class="content__inner">
           <div class="post single-post">
-            <div class="post__image">
-              <img src="./assets/image/posts/<?= $post['img'] ?>" alt="" />
-            </div>
             <div class="post__info-user">
               <div class="user">
                 <i class="fa-regular fa-user"></i>
@@ -52,6 +49,9 @@ include __DIR__ . '/app/controllers/singlePost.php';
                   <?= $post['created_date'] ?>
                 </span>
               </div>
+            </div>
+            <div class="post__image">
+              <img src="./assets/image/posts/<?= $post['img'] ?>" alt="" />
             </div>
             <div class="post__info">
               <div class="post__info-text">
