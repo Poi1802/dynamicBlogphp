@@ -3,7 +3,7 @@ include 'path.php';
 include 'app/controllers/topics.php';
 
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
-$limit = 2;
+$limit = 3;
 $offset = $limit * ($page - 1);
 $totalPages = round(countOfPublPosts('posts') / $limit);
 
@@ -119,7 +119,9 @@ if (isset($_GET['cat_id'])) {
                 <i>К сожалению статей нет :(</i>
               </h4>
             <?php endif ?>
-            <?php include SITE_ROOT . '/app/include/pagination.php' ?>
+            <?php if ($postsAdm) {
+              include SITE_ROOT . '/app/include/pagination.php';
+            } ?>
           </div>
           <div class="content__sidebar">
             <form class="search" action="search.php" method="post">

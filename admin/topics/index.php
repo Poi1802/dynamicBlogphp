@@ -54,9 +54,7 @@ include SITE_ROOT . "/app/controllers/topics.php";
                       <?= $key + 1 ?>
                     </div>
                     <div class="title">
-                      <a href="">
-                        <?= $topic['name'] ?>
-                      </a>
+                      <?= $topic['name'] ?>
                     </div>
                     <div class="edit">
                       <a href="edit.php?id=<?= $topic['id'] ?>">Редакт.</a>

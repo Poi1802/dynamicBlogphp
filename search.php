@@ -7,7 +7,7 @@ if (empty($_GET)) {
 }
 
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
-$limit = 2;
+$limit = 3;
 $offset = $limit * ($page - 1);
 $totalPages = round(countOfSearchPublPosts('posts', $_SESSION['search']) / $limit);
 
@@ -89,7 +89,9 @@ if (isset($_GET['cat_id'])) {
               </h4>
 
             <?php endif ?>
-            <?php include SITE_ROOT . '/app/include/pagination.php' ?>
+            <?php if ($posts) {
+              include SITE_ROOT . '/app/include/pagination.php';
+            } ?>
           </div>
           <div class="content__sidebar">
             <form class="search" action="search.php" method="post">

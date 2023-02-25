@@ -58,6 +58,7 @@ include __DIR__ . '/app/controllers/singlePost.php';
                 <?= $post['content'] ?>
               </div>
             </div>
+            <?php include SITE_ROOT . '/app/include/comments.php' ?>
           </div>
           <div class="content__sidebar">
             <div class="search">
